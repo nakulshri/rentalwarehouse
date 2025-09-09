@@ -83,6 +83,7 @@ const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState<'orders' | 'users' | 'products'>('orders');
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [showCreateBlog, setShowCreateBlog] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState<any>(null);
 
   // Only test Firebase in console, never renders
   useEffect(() => {
@@ -253,7 +254,7 @@ const AdminDashboard = () => {
 
         <main className="bg-white rounded-xl shadow px-4 py-6">
           {activeTab === 'orders' && (
-            <OrdersTable orders={orders} formatDate={formatDate} updateOrderStatus={updateOrderStatus} users={users} />
+            <OrdersTable orders={orders} formatDate={formatDate} updateOrderStatus={updateOrderStatus} users={users} onViewOrder={setSelectedOrder} />
           )}
           {activeTab === 'users' && (
             <UsersTable users={users} formatDate={formatDate} />
@@ -262,6 +263,42 @@ const AdminDashboard = () => {
             <ProductsTable products={products} onEdit={() => {}} onDelete={deleteProduct} onAddProduct={() => setShowAddProduct(true)} />
           )}
         </main>
+
+      {/* Order Detail Modal */}
+      {selectedOrder && (
+        <Modal onClose={() => setSelectedOrder(null)}>
+          <h2 className="text-2xl font-bold mb-4">Order Details</h2>
+          <div className="mb-2"><b>Order ID:</b> {selectedOrder.id}</div>
+          <div className="mb-2"><b>Status:</b> {selectedOrder.status}</div>
+          <div className="mb-2"><b>Total:</b> ${selectedOrder.total?.toFixed(2)}</div>
+          <div className="mb-2"><b>Customer Email:</b> {selectedOrder.customerEmail || selectedOrder.email || 'N/A'}</div>
+          <div className="mb-2"><b>Shipping Address:</b><br />
+            {/* Try shippingAddress, then address, then fallback */}
+            {selectedOrder.shippingAddress?.fullName && <div>{selectedOrder.shippingAddress.fullName}</div>}
+            {selectedOrder.shippingAddress?.address && <div>{selectedOrder.shippingAddress.address}</div>}
+            {selectedOrder.shippingAddress?.city && <div>{selectedOrder.shippingAddress.city}, {selectedOrder.shippingAddress.state} {selectedOrder.shippingAddress.zipCode}</div>}
+            {selectedOrder.shippingAddress?.phone && <div>Phone: {selectedOrder.shippingAddress.phone}</div>}
+            {/* Fallback to address field if shippingAddress is missing */}
+            {!selectedOrder.shippingAddress?.fullName && selectedOrder.address?.fullName && <div>{selectedOrder.address.fullName}</div>}
+            {!selectedOrder.shippingAddress?.address && selectedOrder.address?.address && <div>{selectedOrder.address.address}</div>}
+            {!selectedOrder.shippingAddress?.city && selectedOrder.address?.city && <div>{selectedOrder.address.city}, {selectedOrder.address.state} {selectedOrder.address.zipCode}</div>}
+            {!selectedOrder.shippingAddress?.phone && selectedOrder.address?.phone && <div>Phone: {selectedOrder.address.phone}</div>}
+            {/* If no address at all */}
+            {!selectedOrder.shippingAddress && !selectedOrder.address && <div>No address info</div>}
+          </div>
+          <div className="mb-2"><b>Order Items:</b>
+            {selectedOrder.items && selectedOrder.items.length > 0 ? (
+              <ul className="ml-4 list-disc">
+                {selectedOrder.items.map((item: any, idx: number) => (
+                  <li key={idx}>{item.title || item.name} x{item.quantity}</li>
+                ))}
+              </ul>
+            ) : (
+              <div>No items found</div>
+            )}
+          </div>
+        </Modal>
+      )}
       </div>
 
       {/* Add Product Modal */}
@@ -346,7 +383,7 @@ function TabNav({ active, setActive, orders, users, products }: any) {
 }
 
 // --- TABLES ---
-function OrdersTable({ orders, formatDate, updateOrderStatus, users }: any) {
+function OrdersTable({ orders, formatDate, updateOrderStatus, users, onViewOrder }: any) {
   if (!orders.length) return <div className="py-6 text-gray-400 text-center">No orders found.</div>;
   // Map userId to user info
   const userMap = React.useMemo(() => {
@@ -400,7 +437,7 @@ function OrdersTable({ orders, formatDate, updateOrderStatus, users }: any) {
                 </td>
                 <td className="px-3 py-2">{formatDate(order.createdAt)}</td>
                 <td className="px-3 py-2 text-center">
-                  <button className="text-indigo-600 hover:text-indigo-900">
+                  <button className="text-indigo-600 hover:text-indigo-900" onClick={() => onViewOrder(order)}>
                     <Eye className="w-4 h-4" />
                   </button>
                 </td>

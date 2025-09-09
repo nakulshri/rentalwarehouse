@@ -16,10 +16,27 @@ exports.handler = async (event) => {
     const msg = {
       to: email,
       from: 'noreply@therentalwarehouse.net', // Use your verified sender
-      subject: 'Order Received - The Rental Warehouse',
-      html: `<p>Hi ${name || ''},</p>
-             <p>Thank you for your order! We will contact you for customization. After that, you will receive an invoice to pay.</p>
-             <p>Order ID: <b>${orderId}</b></p>`
+      subject: 'Order Confirmation - The Rental Warehouse',
+      html: `
+        <div style="font-family: Arial, sans-serif; color: #222;">
+          <h2 style="color: #4F46E5;">Thank you for your order, ${name || 'Valued Customer'}!</h2>
+          <p>
+            We have received your order <b>#${orderId}</b> and our team is excited to get started.<br>
+            <br>
+            <b>What happens next?</b><br>
+            - We will reach out to you soon to discuss any customization or special requirements for your order.<br>
+            - Once details are confirmed, you will receive an invoice with payment instructions.<br>
+            - After payment, we’ll process and deliver your order promptly.
+          </p>
+          <p>
+            If you have any questions, reply to this email or contact us at <a href="mailto:support@therentalwarehouse.net">support@therentalwarehouse.net</a>.
+          </p>
+          <p style="margin-top:2em; color:#888; font-size:13px;">
+            Thank you for choosing The Rental Warehouse.<br>
+            <b>Order ID:</b> ${orderId}
+          </p>
+        </div>
+      `
     };
 
     await sgMail.send(msg);

@@ -63,12 +63,13 @@ export default function Checkout() {
         userId: currentUser.uid,
         customerName: customerName,
         customerEmail: currentUser.email,
+        email: currentUser.email, // for compatibility
         items: items,
         address: address,
+        shippingAddress: address, // for compatibility
         total: getTotal(),
         status: 'pending',
-        timestamp: serverTimestamp(),
-        email: currentUser.email
+        timestamp: serverTimestamp()
       });
 
       // Update user's orders array
