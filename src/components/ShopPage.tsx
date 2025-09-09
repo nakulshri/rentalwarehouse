@@ -135,9 +135,7 @@ const ShopPage = () => {
 
                   {/* Price and Action */}
                   <div className="flex items-center justify-between">
-                    <span className="text-2xl font-bold text-gray-900">
-                      ${(Number(product.price) || 0).toFixed(2)}
-                    </span>
+                    <span className="italic text-gray-400">Contact for pricing</span>
                     
                     {addedItems.has(product.id) ? (
                       <button className="bg-classylavendar text-white px-4 py-2 rounded-lg flex items-center space-x-2 text-sm">

@@ -2,11 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { db } from '../firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
-import { Phone, Eye, Star, Calendar, ArrowLeft } from 'lucide-react';
+import { Plus, Eye, Star, Calendar, ArrowLeft } from 'lucide-react';
+import { useCartStore } from '../store/cartStore';
+import { useAuth } from '../contexts/AuthContext';
 import ProductModal from './ProductModal';
 
 const RentPage = () => {
   const [products, setProducts] = useState<any[]>([]);
+  const [addedItems, setAddedItems] = useState<Set<string>>(new Set());
+  const { addToCart } = useCartStore();
+  const { currentUser } = useAuth();
   const [loading, setLoading] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,9 +30,29 @@ const RentPage = () => {
     fetchProducts();
   }, []);
 
-  const handleContact = (e: React.MouseEvent) => {
+
+  const handleAddToCart = (product: any, e: React.MouseEvent) => {
     e.stopPropagation();
-    navigate('/contact');
+    if (!currentUser) {
+      navigate('/login');
+      return;
+    }
+    addToCart({
+      id: product.id,
+      title: product.name,
+      price: 0, // Always 0, but will show 'Contact for pricing'
+      quantity: 1,
+      type: product.type,
+      image: product.imageUrl
+    });
+    setAddedItems(prev => new Set(prev).add(product.id));
+    setTimeout(() => {
+      setAddedItems(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(product.id);
+        return newSet;
+      });
+    }, 2000);
   };
 
   const handleViewProduct = (product: any) => {
@@ -121,18 +146,22 @@ const RentPage = () => {
                   </div>
 
                   {/* Price and Action */}
-                                         <div className="flex items-center justify-between">
-                         <div>
-                           
-                         </div>
-                    
-                    <button 
-                      onClick={(e) => handleContact(e)}
-                      className="bg-classygray text-classywhite px-4 py-2 border-none rounded hover:bg-classylavender hover:text-classyblack transition-colors duration-200 flex items-center space-x-2 text-sm border border-classyblack"
-                    >
-                      <Phone size={16} />
-                      <span>Contact</span>
-                    </button>
+                  <div className="flex items-center justify-between">
+                    <span className="italic text-gray-400">Contact for pricing</span>
+                    {addedItems.has(product.id) ? (
+                      <button className="bg-classylavender text-white px-4 py-2 rounded-lg flex items-center space-x-2 text-sm">
+                        <Plus size={16} />
+                        <span>Added!</span>
+                      </button>
+                    ) : (
+                      <button 
+                        onClick={(e) => handleAddToCart(product, e)}
+                        className="bg-classygray text-white px-4 py-2 rounded-lg  transition-colors duration-200 flex items-center space-x-2 text-sm"
+                      >
+                        <Plus size={16} />
+                        <span>Add to Cart</span>
+                      </button>
+                    )}
                   </div>
 
                   {/* Rental Info */}
