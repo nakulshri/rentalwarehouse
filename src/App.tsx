@@ -83,9 +83,9 @@ function AppContent() {
                 <Hero />
                 <Services />
                 <Gallery />
-                <WhyChooseUs />
                 <RentalOptions />
                 <SaleOptions />
+                <WhyChooseUs />
                 <Testimonials />
                 <Contact />
                 <Footer />

@@ -3,9 +3,18 @@ import { db } from '../firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import { useCartStore } from '../store/cartStore';
 import { useAuth } from '../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Plus, Eye, Star, ArrowLeft } from 'lucide-react';
 import ProductModal from './ProductModal';
+
+
+const categoryOptions = [
+  { label: 'All', value: '' },
+  { label: 'Crockery', value: 'crockery' },
+  { label: 'Lighting', value: 'lighting' },
+  { label: 'Decor', value: 'decor' },
+  { label: 'Stages', value: 'stages' },
+];
 
 const ShopPage = () => {
   const [products, setProducts] = useState<any[]>([]);
@@ -13,9 +22,18 @@ const ShopPage = () => {
   const [addedItems, setAddedItems] = useState<Set<string>>(new Set());
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState('');
   const { addToCart } = useCartStore();
   const { currentUser } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Read category from query string on mount
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const cat = params.get('category') || '';
+    setSelectedCategory(cat);
+  }, [location.search]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -23,12 +41,15 @@ const ShopPage = () => {
       const querySnapshot = await getDocs(collection(db, 'products'));
       const all = querySnapshot.docs.map((docSnap: any) => ({ ...docSnap.data(), id: docSnap.id }));
       // Only show sale products
-      const saleProducts = all.filter(p => p.type === 'sale');
+      let saleProducts = all.filter(p => p.type === 'sale');
+      if (selectedCategory) {
+        saleProducts = saleProducts.filter(p => (p.category || '').toLowerCase() === selectedCategory.toLowerCase());
+      }
       setProducts(saleProducts);
       setLoading(false);
     };
     fetchProducts();
-  }, []);
+  }, [selectedCategory]);
 
   const handleAddToCart = (product: any, e: React.MouseEvent) => {
     e.stopPropagation();
@@ -80,9 +101,24 @@ const ShopPage = () => {
             <ArrowLeft size={20} />
             <span>Back to Home</span>
           </button>
-          
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Shop Our Products</h1>
           <p className="text-xl text-gray-600">Discover our premium collection of products available for purchase</p>
+          {/* Category Filter */}
+          <div className="mt-4 flex flex-wrap gap-2 items-center">
+            <span className="font-medium text-gray-700 mr-2">Filter by Category:</span>
+            {categoryOptions.map(opt => (
+              <button
+                key={opt.value}
+                className={`px-4 py-2 rounded-full border text-sm font-semibold transition-colors duration-200 ${selectedCategory === opt.value ? 'bg-classylavender text-white border-classylavender' : 'bg-white text-gray-700 border-gray-300 hover:bg-classylavender hover:text-white hover:border-classylavender'}`}
+                onClick={() => {
+                  setSelectedCategory(opt.value);
+                  navigate(opt.value ? `/shop?category=${opt.value}` : '/shop');
+                }}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
         </div>
 
         {loading ? (

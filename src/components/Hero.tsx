@@ -5,6 +5,7 @@ const Hero = () => {
   const [scrollY, setScrollY] = useState(0);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
+
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
     const handleMouseMove = (e: MouseEvent) => {
@@ -77,13 +78,13 @@ const Hero = () => {
             </h1>
             
             <div className="flex items-center justify-center space-x-4 text-lg md:text-xl text-gray-600 font-medium">
-              <span className="px-4 py-2   ">Crockery</span>
+              <span className="px-4 py-2">Crockery</span>
               <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
-              <span className="px-4 py-2 ">Lighting</span>
+              <span className="px-4 py-2">Lighting</span>
               <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
-              <span className="px-4 py-2 ">Decor</span>
+              <span className="px-4 py-2">Decor</span>
               <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
-              <span className="px-4 py-2 ">Stages</span>
+              <span className="px-4 py-2">Stages</span>
             </div>
           </div>
 

@@ -24,40 +24,16 @@ const SaleOptions = () => {
   const saleCategories = [
     {
       id: 1,
-      name: "SHOP NEW ARRIVALS",
-      image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-      description: "Latest products added to our collection"
+      name: "Crockery",
+      image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1000&q=80",
+      description: "Plates, cutlery, glassware and more."
     },
     {
       id: 2,
-      name: "SHOP SEATING",
-      image: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-      description: "Comfortable chairs and seating solutions"
+      name: "Decoration",
+      image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1000&q=80",
+      description: "Decorative items and accessories."
     },
-    {
-      id: 3,
-      name: "SHOP TABLES",
-      image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-      description: "Dining tables and display surfaces"
-    },
-    {
-      id: 4,
-      name: "SHOP FURNITURE",
-      image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-      description: "Complete furniture pieces"
-    },
-    {
-      id: 5,
-      name: "SHOP DECOR",
-      image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-      description: "Decorative items and accessories"
-    },
-    {
-      id: 6,
-      name: "SHOP LIGHTING",
-      image: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-      description: "Lighting fixtures and lamps"
-    }
   ];
 
   return (
@@ -72,13 +48,13 @@ const SaleOptions = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-10 max-w-4xl mx-auto">
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-10 max-w-2xl mx-auto">
           {saleCategories.map((category, index) => (
             <div
               key={category.id}
               className={`group cursor-pointer transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
               style={{ transitionDelay: isVisible ? `${index * 100}ms` : '0ms' }}
-              onClick={() => navigate('/shop')}
+              onClick={() => navigate(`/shop?category=${encodeURIComponent(category.name.toLowerCase())}`)}
             >
               <div className="relative overflow-hidden rounded-lg aspect-square mb-4">
                 <img
