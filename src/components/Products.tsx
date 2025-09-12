@@ -1,21 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ShoppingCart, Phone, Plus, Check } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { db } from '../firebase';
 import { collection, getDocs } from 'firebase/firestore';
-import { useNavigate } from 'react-router-dom';
 import { useCartStore } from '../store/cartStore';
-import { useAuth } from '../contexts/AuthContext';
 
 const Products = () => {
-  const [activeTab, setActiveTab] = useState<'sale' | 'rental'>('sale');
-  const [isVisible, setIsVisible] = useState(false);
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
   const [addedItems, setAddedItems] = useState<Set<string>>(new Set());
   const sectionRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const { addToCart } = useCartStore();
-  const { currentUser } = useAuth();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -26,32 +23,34 @@ const Products = () => {
       },
       { threshold: 0.1 }
     );
+
     if (sectionRef.current) {
       observer.observe(sectionRef.current);
     }
+
     return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
     const fetchProducts = async () => {
-      setLoading(true);
-      const querySnapshot = await getDocs(collection(db, 'products'));
-      const all = querySnapshot.docs.map((docSnap: any) => ({ ...docSnap.data(), id: docSnap.id }));
-      setProducts(all.slice(0, 6)); // Show first 6 products
-      setLoading(false);
+      try {
+        const querySnapshot = await getDocs(collection(db, 'products'));
+        const productsData = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        setProducts(productsData.slice(0, 6)); // Show only first 6 products
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      } finally {
+        setLoading(false);
+      }
     };
+
     fetchProducts();
   }, []);
 
-  // Only show sale items in the main products section
-  const displayedProducts = products.filter(p => p.type === 'sale');
-
   const handleAddToCart = (product: any) => {
-    if (!currentUser) {
-      navigate('/login');
-      return;
-    }
-
     addToCart({
       id: product.id,
       title: product.name,
@@ -61,7 +60,6 @@ const Products = () => {
       image: product.imageUrl
     });
 
-    // Show feedback
     setAddedItems(prev => new Set(prev).add(product.id));
     setTimeout(() => {
       setAddedItems(prev => {
@@ -72,72 +70,121 @@ const Products = () => {
     }, 2000);
   };
 
-  const handleContact = () => {
-    navigate('/contact');
-  };
+  if (loading) {
+    return (
+      <section id="products" className="py-16 bg-white">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto"></div>
+            <p className="mt-4 text-gray-600">Loading products...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
-    <section id="products" ref={sectionRef} className="py-20 bg-gray-50">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className={`text-4xl md:text-5xl font-bold text-gray-800 mb-4 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>Our Products</h2>
-          <p className={`text-xl text-gray-600 max-w-2xl mx-auto mb-8 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>Premium inventory available for purchase</p>
+    <section id="products" ref={sectionRef} className="py-16 bg-white">
+      <div className="max-w-5xl mx-auto px-6">
+        <div className="text-center mb-12">
+          <div className={`transition-all duration-1000 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}>
+            <span className="inline-block px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-medium uppercase tracking-wide mb-4">
+              Featured Products
+            </span>
+          </div>
+          
+          <h2 className={`text-2xl font-light text-gray-900 mb-4 transition-all duration-1000 delay-200 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}>
+            Our Collection
+          </h2>
+          
+          <p className={`text-base text-gray-600 max-w-xl mx-auto leading-relaxed transition-all duration-1000 delay-400 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}>
+            Discover our premium selection of event equipment and furniture
+          </p>
         </div>
-        {loading ? (
-          <div className="text-center">Loading...</div>
-        ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {displayedProducts.map((product: any, index: number) => (
-              <div
+
+        <div className={`grid md:grid-cols-2 lg:grid-cols-3 gap-6 transition-all duration-1000 delay-500 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}>
+          {products.map((product, index) => (
+            <div
               key={product.id}
-              className={`group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 overflow-hidden flex flex-col h-[460px] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-              style={{ transitionDelay: isVisible ? `${index * 100}ms` : '0ms' }}
+              className="bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden border border-gray-100"
             >
-              <div className="relative overflow-hidden">
+              {/* Product Image */}
+              <div className="relative h-48 overflow-hidden">
                 <img
                   src={product.imageUrl}
                   alt={product.name}
-                  className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                 />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300"></div>
+                <div className="absolute top-3 left-3">
+                  <span className={`px-2 py-1 text-xs font-medium rounded-full ${
+                    product.type === 'sale' 
+                      ? 'bg-green-100 text-green-800' 
+                      : 'bg-blue-100 text-blue-800'
+                  }`}>
+                    {product.type === 'sale' ? 'For Sale' : 'For Rent'}
+                  </span>
+                </div>
               </div>
-            
-              {/* Card Content */}
-              <div className="p-6 flex flex-col flex-grow">
-                <h3 className="text-xl font-bold text-gray-800 mb-2 group-hover:text-gray-900 transition-colors duration-300">
+
+              {/* Product Info */}
+              <div className="p-4">
+                <h3 className="text-lg font-medium text-gray-900 mb-2 line-clamp-1">
                   {product.name}
                 </h3>
-                <p className="text-gray-600 mb-4 leading-relaxed line-clamp-3">
+                <p className="text-sm text-gray-600 mb-3 line-clamp-2">
                   {product.description}
                 </p>
-            
-                <div className="mt-auto">
-                  <div className="flex items-center justify-between w-full">
-                    <span className="text-2xl font-bold text-gray-800">${(Number(product.price) || 0).toFixed(2)}</span>
-                    {addedItems.has(product.id) ? (
-                      <button className="bg-green-600 text-white px-4 py-2 rounded-full flex items-center space-x-2">
-                        <Check size={16} />
-                        <span>Added!</span>
-                      </button>
-                    ) : (
-                      <button 
-                        onClick={() => handleAddToCart(product)}
-                        className="bg-black text-white px-4 py-2 rounded-full hover:bg-gray-800 transition-colors duration-300 flex items-center space-x-2"
-                      >
-                        <Plus size={16} />
-                        <span>Add to Cart</span>
-                      </button>
-                    )}
-                  </div>
+                
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-gray-500 italic">
+                    Contact for pricing
+                  </span>
+                  
+                  {addedItems.has(product.id) ? (
+                    <button className="px-3 py-1.5 bg-green-100 text-green-800 rounded-lg flex items-center space-x-1 text-xs font-medium">
+                      <Check size={14} />
+                      <span>Added!</span>
+                    </button>
+                  ) : (
+                    <button 
+                      onClick={() => handleAddToCart(product)}
+                      className="px-3 py-1.5 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors duration-200 flex items-center space-x-1 text-xs font-medium"
+                    >
+                      <Plus size={14} />
+                      <span>Add to Cart</span>
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
-            
-            ))}
+          ))}
+        </div>
+
+        <div className={`text-center mt-12 transition-all duration-1000 delay-700 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button
+              onClick={() => navigate('/shop')}
+              className="px-6 py-2.5 bg-gray-900 text-white rounded-lg font-medium hover:bg-gray-800 transition-all duration-200 text-sm"
+            >
+              View All Products
+            </button>
+            <button
+              onClick={() => navigate('/rent')}
+              className="px-6 py-2.5 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-all duration-200 text-sm"
+            >
+              Browse Rentals
+            </button>
           </div>
-        )}
-        <div className="text-center mt-12">
-          <button onClick={() => navigate('/products')} className="px-8 py-4 bg-black text-white rounded-full font-semibold hover:bg-gray-800 transition-all duration-300 transform hover:scale-105 hover:shadow-lg">Explore More</button>
         </div>
       </div>
     </section>

@@ -2,18 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { db } from '../firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Plus, Eye, Star, Calendar, ArrowLeft } from 'lucide-react';
+import { Plus, Eye, Star, Calendar, ArrowLeft, Package, Filter, Clock, Truck, Check, Heart, Share2 } from 'lucide-react';
 import { useCartStore } from '../store/cartStore';
 import { useAuth } from '../contexts/AuthContext';
 import ProductModal from './ProductModal';
 
-
 const categoryOptions = [
-  { label: 'All', value: '' },
-  { label: 'Crockery', value: 'crockery' },
-  { label: 'Lighting', value: 'lighting' },
-  { label: 'Decor', value: 'decor' },
-  { label: 'Stages', value: 'stages' },
+  { label: 'All Equipment', value: '', icon: '🎪' },
+  { label: 'Crockery', value: 'crockery', icon: '🍽️' },
+  { label: 'Lighting', value: 'lighting', icon: '💡' },
+  { label: 'Decor', value: 'decor', icon: '' },
+  { label: 'Stages', value: 'stages', icon: '🎭' },
 ];
 
 const RentPage = () => {
@@ -25,6 +24,7 @@ const RentPage = () => {
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [sortBy, setSortBy] = useState('name');
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -45,12 +45,24 @@ const RentPage = () => {
       if (selectedCategory) {
         rentalProducts = rentalProducts.filter(p => (p.category || '').toLowerCase() === selectedCategory.toLowerCase());
       }
+      
+      // Sort products
+      rentalProducts.sort((a, b) => {
+        switch (sortBy) {
+          case 'name':
+            return a.name.localeCompare(b.name);
+          case 'price':
+            return (a.price || 0) - (b.price || 0);
+          default:
+            return 0;
+        }
+      });
+      
       setProducts(rentalProducts);
       setLoading(false);
     };
     fetchProducts();
-  }, [selectedCategory]);
-
+  }, [selectedCategory, sortBy]);
 
   const handleAddToCart = (product: any, e: React.MouseEvent) => {
     e.stopPropagation();
@@ -87,125 +99,193 @@ const RentPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-classywhite py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-emerald-50">
+      {/* Hero Section */}
+      <div className="bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 text-white py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <div className="flex items-center justify-center mb-4">
+              <Package className="w-8 h-8 mr-3" />
+              <h1 className="text-5xl font-bold">Rent Our Equipment</h1>
+            </div>
+            <p className="text-xl text-emerald-100 max-w-2xl mx-auto">
+              Professional equipment available for short-term and long-term rental. 
+              Perfect for events, parties, and special occasions.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Navigation */}
         <div className="mb-8">
           <button
             onClick={() => navigate('/')}
-            className="flex items-center space-x-2 text-classygray hover:text-classyblack mb-4 underline hover:no-underline bg-transparent border-none shadow-none p-0"
-            style={{ background: 'none', boxShadow: 'none', border: 'none' }}
+            className="inline-flex items-center space-x-2 text-emerald-600 hover:text-emerald-800 mb-6 transition-colors group"
           >
-            <ArrowLeft size={20} />
-            <span>Back to Home</span>
+            <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
+            <span className="font-medium">Back to Home</span>
           </button>
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Rent Our Equipment</h1>
-          <p className="text-xl text-gray-600">Professional equipment available for short-term and long-term rental</p>
-          {/* Category Filter */}
-          <div className="mt-4 flex flex-wrap gap-2 items-center">
-            <span className="font-medium text-gray-700 mr-2">Filter by Category:</span>
-            {categoryOptions.map(opt => (
-              <button
-                key={opt.value}
-                className={`px-4 py-2 rounded-full border text-sm font-semibold transition-colors duration-200 ${selectedCategory === opt.value ? 'bg-classylavender text-white border-classylavender' : 'bg-white text-gray-700 border-gray-300 hover:bg-classylavender hover:text-white hover:border-classylavender'}`}
-                onClick={() => {
-                  setSelectedCategory(opt.value);
-                  navigate(opt.value ? `/rent?category=${opt.value}` : '/rent');
-                }}
+        </div>
+
+        {/* Filters and Controls */}
+        <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+            {/* Category Filter */}
+            <div className="flex-1">
+              <h3 className="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+                <Filter className="w-5 h-5 mr-2" />
+                Filter by Category
+              </h3>
+              <div className="flex flex-wrap gap-3">
+                {categoryOptions.map(opt => (
+                  <button
+                    key={opt.value}
+                    className={`group relative px-6 py-3 rounded-xl font-medium transition-all duration-300 transform hover:scale-105 ${
+                      selectedCategory === opt.value 
+                        ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg' 
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200 hover:text-gray-900'
+                    }`}
+                    onClick={() => {
+                      setSelectedCategory(opt.value);
+                      navigate(opt.value ? `/rent?category=${opt.value}` : '/rent');
+                    }}
+                  >
+                    <span className="flex items-center space-x-2">
+                      <span className="text-lg">{opt.icon}</span>
+                      <span>{opt.label}</span>
+                    </span>
+                    {selectedCategory === opt.value && (
+                      <div className="absolute -top-1 -right-1 w-3 h-3 bg-white rounded-full flex items-center justify-center">
+                        <Check className="w-2 h-2 text-emerald-600" />
+                      </div>
+                    )}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Sort Options */}
+            <div className="lg:ml-8">
+              <label className="block text-sm font-medium text-gray-700 mb-2">Sort by</label>
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
               >
-                {opt.label}
-              </button>
-            ))}
+                <option value="name">Name</option>
+                <option value="price">Price</option>
+              </select>
+            </div>
           </div>
         </div>
 
+        {/* Products Grid */}
         {loading ? (
-          <div className="text-center py-12">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
-            <p className="mt-4 text-gray-600">Loading equipment...</p>
+          <div className="text-center py-16">
+            <div className="inline-flex items-center space-x-3">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-600"></div>
+              <span className="text-lg text-gray-600">Loading equipment...</span>
+            </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {products.map((product: any, index: number) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            {products.map((product: any) => (
               <div
                 key={product.id}
-                className="group bg-white rounded shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 overflow-hidden cursor-pointer"
+                className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 overflow-hidden cursor-pointer border border-gray-100"
                 onClick={() => handleViewProduct(product)}
               >
                 {/* Product Image */}
-                <div className="relative overflow-hidden">
+                <div className="relative overflow-hidden h-64">
                   <img
                     src={product.imageUrl}
                     alt={product.name}
-                    className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   
                   {/* Badge */}
-                  <div className="absolute top-3 left-3">
-                    <span className="bg-classylavender text-classywhite px-2 py-1 text-xs font-medium rounded flex items-center space-x-1">
-                      <Calendar size={12} />
+                  <div className="absolute top-4 left-4">
+                    <span className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-3 py-1.5 text-sm font-semibold rounded-full shadow-lg flex items-center space-x-1">
+                      <Calendar className="w-4 h-4" />
                       <span>For Rent</span>
                     </span>
                   </div>
 
-                  {/* View Button */}
-                  <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <button className="bg-classywhite text-classygray p-2 rounded hover:bg-classylavender hover:text-classywhite transition-colors">
-                      <Eye size={16} />
+                  {/* Action Buttons */}
+                  <div className="absolute top-4 right-4 flex space-x-2 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                    <button className="bg-white/90 backdrop-blur-sm text-gray-700 p-2.5 rounded-full hover:bg-white hover:text-emerald-600 transition-all duration-200 shadow-lg">
+                      <Heart className="w-4 h-4" />
+                    </button>
+                    <button className="bg-white/90 backdrop-blur-sm text-gray-700 p-2.5 rounded-full hover:bg-white hover:text-emerald-600 transition-all duration-200 shadow-lg">
+                      <Share2 className="w-4 h-4" />
+                    </button>
+                    <button className="bg-white/90 backdrop-blur-sm text-gray-700 p-2.5 rounded-full hover:bg-white hover:text-emerald-600 transition-all duration-200 shadow-lg">
+                      <Eye className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
 
                 {/* Product Info */}
                 <div className="p-6">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
-                    {product.name}
-                  </h3>
-                  
-                  <p className="text-gray-600 text-sm mb-3 line-clamp-2">
-                    {product.description}
-                  </p>
+                  <div className="mb-3">
+                    <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-emerald-600 transition-colors line-clamp-1">
+                      {product.name}
+                    </h3>
+                    <p className="text-gray-600 text-sm line-clamp-2 leading-relaxed">
+                      {product.description}
+                    </p>
+                  </div>
 
                   {/* Rating */}
-                  <div className="flex items-center mb-3">
+                  <div className="flex items-center mb-4">
                     <div className="flex items-center">
                       {[1, 2, 3, 4, 5].map((star) => (
                         <Star
                           key={star}
-                          size={14}
-                          className="text-classylavender fill-current"
+                          size={16}
+                          className="text-amber-400 fill-current"
                         />
                       ))}
                     </div>
-                    <span className="text-xs text-classylavender ml-1">(4.8)</span>
+                    <span className="text-sm text-gray-500 ml-2">(4.8)</span>
+                  </div>
+
+                  {/* Rental Info */}
+                  <div className="bg-gray-50 rounded-lg p-3 mb-4">
+                    <div className="flex items-center justify-between text-xs text-gray-600">
+                      <div className="flex items-center space-x-1">
+                        <Clock className="w-3 h-3" />
+                        <span>Min. 1 day</span>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <Truck className="w-3 h-3" />
+                        <span>Delivery</span>
+                      </div>
+                    </div>
                   </div>
 
                   {/* Price and Action */}
                   <div className="flex items-center justify-between">
-                    <span className="italic text-gray-400">Contact for pricing</span>
+                    <div className="text-right">
+                      <span className="text-sm text-gray-500 italic">Contact for pricing</span>
+                    </div>
+                    
                     {addedItems.has(product.id) ? (
-                      <button className="bg-classylavender text-white px-4 py-2 rounded-lg flex items-center space-x-2 text-sm">
-                        <Plus size={16} />
+                      <button className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-6 py-2.5 rounded-xl font-semibold flex items-center space-x-2 shadow-lg transform scale-105">
+                        <Check className="w-4 h-4" />
                         <span>Added!</span>
                       </button>
                     ) : (
                       <button 
                         onClick={(e) => handleAddToCart(product, e)}
-                        className="bg-classygray text-white px-4 py-2 rounded-lg  transition-colors duration-200 flex items-center space-x-2 text-sm"
+                        className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-6 py-2.5 rounded-xl font-semibold hover:from-emerald-600 hover:to-teal-700 transition-all duration-200 flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:scale-105"
                       >
-                        <Plus size={16} />
+                        <Plus className="w-4 h-4" />
                         <span>Add to Cart</span>
                       </button>
                     )}
-                  </div>
-
-                  {/* Rental Info */}
-                  <div className="mt-3 pt-3 border-t border-classygray">
-                    <div className="flex items-center justify-between text-xs text-classygray">
-                      <span>Min. Rental: 1 day</span>
-                      <span>Delivery Available</span>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -214,8 +294,12 @@ const RentPage = () => {
         )}
 
         {products.length === 0 && !loading && (
-          <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">No equipment available for rent at the moment.</p>
+          <div className="text-center py-16">
+            <div className="bg-white rounded-2xl shadow-lg p-12 max-w-md mx-auto">
+              <Package className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">No Equipment Available</h3>
+              <p className="text-gray-600">No equipment available for rent at the moment. Check back soon!</p>
+            </div>
           </div>
         )}
       </div>

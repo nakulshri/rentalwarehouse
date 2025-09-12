@@ -1,7 +1,7 @@
 import React, { useEffect, useState, Suspense } from 'react';
 import { db } from '../../firebase';
 import { collection, getDocs, doc, updateDoc, deleteDoc } from 'firebase/firestore';
-import { Plus, Edit, Trash2, Eye, Package, Users, ShoppingCart, DollarSign, X } from 'lucide-react';
+import { Plus, Trash2, Eye, Package, Users, ShoppingCart, DollarSign, X } from 'lucide-react';
 import AddProduct from './AddProduct';
 
 // Lazy load CreateBlog
@@ -260,7 +260,7 @@ const AdminDashboard = () => {
             <UsersTable users={users} formatDate={formatDate} />
           )}
           {activeTab === 'products' && (
-            <ProductsTable products={products} onEdit={() => {}} onDelete={deleteProduct} onAddProduct={() => setShowAddProduct(true)} />
+            <ProductsTable products={products} onDelete={deleteProduct} onAddProduct={() => setShowAddProduct(true)} />
           )}
         </main>
 
@@ -478,7 +478,7 @@ function UsersTable({ users, formatDate }: any) {
   );
 }
 
-function ProductsTable({ products, onEdit, onDelete, onAddProduct }: any) {
+function ProductsTable({ products, onDelete, onAddProduct }: any) {
   return (
     <>
       <div className="flex justify-between items-center mb-3">
@@ -540,11 +540,6 @@ function ProductsTable({ products, onEdit, onDelete, onAddProduct }: any) {
                     </span>
                   </td>
                   <td className="px-3 py-2 text-center">
-                    <button className="inline-flex items-center text-indigo-600 hover:text-indigo-900 mr-1"
-                      onClick={() => onEdit(product.id)}
-                    >
-                      <Edit className="w-4 h-4" />
-                    </button>
                     <button className="inline-flex items-center text-red-600 hover:text-red-900"
                       onClick={() => onDelete(product.id)}>
                       <Trash2 className="w-4 h-4" />

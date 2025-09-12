@@ -1,37 +1,48 @@
 import React from 'react';
-import { Instagram, Phone } from 'lucide-react';
+import { Instagram, Phone, Mail } from 'lucide-react';
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-800 text-white py-12">
+    <footer className="bg-gray-800 text-white py-12 relative">
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row items-center justify-between">
           <div className="mb-6 md:mb-0">
             <div className="text-2xl font-bold mb-2">
-              Warehouse<span className="text-sm align-super">©</span>
+              The Rental Warehouse<span className="text-sm align-super">©</span>
             </div>
             <p className="text-gray-400">
               © 2025 The Rental Warehouse. All rights reserved.
             </p>
+            <p className="text-gray-400 text-sm mt-1">
+              641 Walnut Dr, Fowler, CA 93625
+            </p>
           </div>
 
-          <div className="flex items-center space-x-6">
+          <div className="flex items-center space-x-4">
             <a
-              href="https://instagram.com/rentalwarehouse"
+              href="https://instagram.com/therentalwarehouse"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center space-x-2 bg-pink-500 hover:bg-pink-600 px-4 py-2 rounded-full transition-colors duration-300"
+              className="flex items-center space-x-2 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 px-4 py-2 rounded-full transition-all duration-300 transform hover:scale-105"
             >
               <Instagram size={20} />
               <span>Instagram</span>
             </a>
             
             <a
-              href="tel:+1234567890"
-              className="flex items-center space-x-2 bg-green-500 hover:bg-green-600 px-4 py-2 rounded-full transition-colors duration-300"
+              href="tel:559-552-3768"
+              className="flex items-center space-x-2 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 px-4 py-2 rounded-full transition-all duration-300 transform hover:scale-105"
             >
               <Phone size={20} />
               <span>Call Now</span>
+            </a>
+
+            <a
+              href="mailto:therentalwarehouse1@gmail.com"
+              className="flex items-center space-x-2 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 px-4 py-2 rounded-full transition-all duration-300 transform hover:scale-105"
+            >
+              <Mail size={20} />
+              <span>Email</span>
             </a>
           </div>
         </div>
@@ -41,7 +52,7 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Wave Background */}
+      {/* Enhanced Wave Background */}
       <div className="absolute bottom-0 left-0 right-0 overflow-hidden pointer-events-none">
         <svg
           className="relative block w-full h-6"

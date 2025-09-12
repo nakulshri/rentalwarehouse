@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Star, ChevronLeft, ChevronRight, Quote, Award } from 'lucide-react';
 
 const Testimonials = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -11,25 +11,33 @@ const Testimonials = () => {
       name: "Sarah Johnson",
       event: "Wedding Reception",
       rating: 5,
-      quote: "The Rental Warehouse transformed our wedding into a fairy tale. Their attention to detail and premium quality equipment made our special day absolutely perfect."
+      quote: "The Rental Warehouse transformed our wedding into a fairy tale. Their attention to detail and premium quality equipment made our special day absolutely perfect. The team was professional, punctual, and exceeded all our expectations.",
+      image: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop&crop=face",
+      location: "Fresno, CA"
     },
     {
       name: "Michael Chen",
       event: "Corporate Event",
       rating: 5,
-      quote: "Professional service from start to finish. The lighting setup was spectacular and really elevated our company's annual gala. Highly recommended!"
+      quote: "Professional service from start to finish. The lighting setup was spectacular and really elevated our company's annual gala. Highly recommended! The team's expertise and attention to detail made our event unforgettable.",
+      image: "https://images.pexels.com/photos/1040880/pexels-photo-1040880.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop&crop=face",
+      location: "Fowler, CA"
     },
     {
       name: "Emily Rodriguez",
       event: "Birthday Celebration",
       rating: 5,
-      quote: "Amazing customer service and beautiful decor pieces. They helped bring my vision to life and made the planning process so smooth and enjoyable."
+      quote: "Amazing customer service and beautiful decor pieces. They helped bring my vision to life and made the planning process so smooth and enjoyable. The quality of their equipment is outstanding.",
+      image: "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop&crop=face",
+      location: "Fresno, CA"
     },
     {
       name: "David Thompson",
       event: "Anniversary Party",
       rating: 5,
-      quote: "Outstanding quality and timely delivery. The crockery was elegant and the stage setup was exactly what we envisioned. Thank you for making our anniversary memorable!"
+      quote: "Outstanding quality and timely delivery. The crockery was elegant and the stage setup was exactly what we envisioned. Thank you for making our anniversary memorable! The team's professionalism was exceptional.",
+      image: "https://images.pexels.com/photos/1040881/pexels-photo-1040881.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop&crop=face",
+      location: "Fowler, CA"
     }
   ];
 
@@ -53,7 +61,7 @@ const Testimonials = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-    }, 6000);
+    }, 8000);
 
     return () => clearInterval(interval);
   }, [testimonials.length]);
@@ -67,77 +75,121 @@ const Testimonials = () => {
   };
 
   return (
-    <section id="testimonials" ref={sectionRef} className="py-20 bg-classywhite">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className={`text-4xl md:text-5xl font-bold text-classygray mb-4 transition-all duration-1000 ${
+    <section id="testimonials" ref={sectionRef} className="py-32 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23667eea' fill-opacity='0.1'%3E%3Ccircle cx='50' cy='50' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+        }}></div>
+      </div>
+
+      <div className="container mx-auto px-6 relative">
+        <div className="text-center mb-20">
+          <div className={`transition-all duration-1000 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}>
-            Client Testimonials
+            <span className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-full text-sm font-semibold uppercase tracking-wider mb-6 shadow-lg">
+              <Award className="w-4 h-4 mr-2" />
+              Client Testimonials
+            </span>
+          </div>
+          
+          <h2 className={`text-5xl md:text-7xl font-black text-gray-900 mb-6 leading-tight transition-all duration-1000 delay-200 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}>
+            What Our Clients
+            <span className="block bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+              Say About Us
+            </span>
           </h2>
-          <p className={`text-xl text-classylavender max-w-2xl mx-auto transition-all duration-1000 delay-200 ${
+          
+          <p className={`text-xl text-gray-600 max-w-4xl mx-auto font-light transition-all duration-1000 delay-400 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}>
-            What our satisfied clients say about us
+            Don't just take our word for it - hear from the satisfied clients who have experienced our premium service
           </p>
         </div>
 
-        <div className="max-w-4xl mx-auto relative">
-          <div className="bg-classywhite rounded p-8 md:p-12 shadow-none border border-classygray">
+        <div className="max-w-6xl mx-auto relative">
+          {/* Main Testimonial Card */}
+          <div className="bg-white rounded-3xl p-12 md:p-16 shadow-2xl border border-gray-100 relative overflow-hidden">
+            {/* Background Pattern */}
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full -translate-y-16 translate-x-16 opacity-50"></div>
+            <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-green-100 to-emerald-100 rounded-full translate-y-12 -translate-x-12 opacity-50"></div>
+
             {testimonials.map((testimonial, index) => (
               <div
                 key={index}
                 className={`transition-all duration-1000 ${
                   index === currentTestimonial 
                     ? 'opacity-100 translate-x-0' 
-                    : 'opacity-0 absolute inset-0 translate-x-4'
+                    : 'opacity-0 absolute inset-0 translate-x-8'
                 }`}
               >
-                <div className="text-center">
+                <div className="relative z-10">
+                  {/* Quote Icon */}
+                  <div className="flex justify-center mb-8">
+                    <div className="w-16 h-16 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full flex items-center justify-center">
+                      <Quote className="w-8 h-8 text-white" />
+                    </div>
+                  </div>
+
                   {/* Stars */}
-                  <div className="flex justify-center mb-6">
+                  <div className="flex justify-center mb-8">
                     {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-6 h-6 text-yellow-400 fill-current" />
+                      <Star key={i} className="w-6 h-6 text-yellow-400 fill-current mx-1" />
                     ))}
                   </div>
 
                   {/* Quote */}
-                  <blockquote className="text-xl md:text-2xl text-gray-700 mb-8 leading-relaxed italic">
+                  <blockquote className="text-2xl md:text-3xl text-gray-700 mb-12 leading-relaxed text-center font-light italic">
                     "{testimonial.quote}"
                   </blockquote>
 
                   {/* Client Info */}
-                  <div>
-                    <h4 className="text-xl font-bold text-gray-800 mb-1">
-                      {testimonial.name}
-                    </h4>
-                    <p className="text-gray-600">
-                      {testimonial.event}
-                    </p>
+                  <div className="flex items-center justify-center space-x-6">
+                    <div className="w-16 h-16 rounded-full overflow-hidden shadow-lg">
+                      <img
+                        src={testimonial.image}
+                        alt={testimonial.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="text-center">
+                      <h4 className="text-2xl font-bold text-gray-900 mb-1">
+                        {testimonial.name}
+                      </h4>
+                      <p className="text-gray-600 text-lg">
+                        {testimonial.event}
+                      </p>
+                      <p className="text-gray-500 text-sm">
+                        {testimonial.location}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Navigation */}
-          <div className="flex items-center justify-between mt-8">
+          {/* Enhanced Navigation */}
+          <div className="flex items-center justify-between mt-12">
             <button
               onClick={prevTestimonial}
-              className="p-3 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 border border-gray-200"
+              className="p-4 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 border border-gray-200 group"
             >
-              <ChevronLeft size={24} className="text-gray-600" />
+              <ChevronLeft size={28} className="text-gray-600 group-hover:text-indigo-600 transition-colors duration-300" />
             </button>
 
-            <div className="flex space-x-3">
+            <div className="flex space-x-4">
               {testimonials.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentTestimonial(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  className={`w-4 h-4 rounded-full transition-all duration-300 ${
                     index === currentTestimonial 
-                      ? 'bg-gray-800 scale-125' 
-                      : 'bg-gray-400 hover:bg-gray-600'
+                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 scale-125' 
+                      : 'bg-gray-300 hover:bg-gray-400'
                   }`}
                 />
               ))}
@@ -145,9 +197,9 @@ const Testimonials = () => {
 
             <button
               onClick={nextTestimonial}
-              className="p-3 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 border border-gray-200"
+              className="p-4 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 border border-gray-200 group"
             >
-              <ChevronRight size={24} className="text-gray-600" />
+              <ChevronRight size={28} className="text-gray-600 group-hover:text-indigo-600 transition-colors duration-300" />
             </button>
           </div>
         </div>

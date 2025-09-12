@@ -4,6 +4,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { addDoc, collection, doc, updateDoc, arrayUnion, serverTimestamp, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useNavigate } from 'react-router-dom';
+import { CreditCard, MapPin, User, Phone, Lock, ArrowLeft, CheckCircle, AlertCircle } from 'lucide-react';
 
 interface AddressForm {
   fullName: string;
@@ -49,7 +50,6 @@ export default function Checkout() {
     try {
       setLoading(true);
       setError('');
-
 
       // Get user name from users collection
       let customerName = '';
@@ -106,11 +106,23 @@ export default function Checkout() {
 
   if (items.length === 0) {
     return (
-      <div className="min-h-screen bg-gray-50 py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="text-center">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Checkout</h2>
-            <p className="text-gray-600 mb-8">Your cart is empty</p>
+            <div className="bg-white rounded-3xl shadow-2xl p-16 max-w-2xl mx-auto">
+              <div className="w-24 h-24 bg-gradient-to-r from-red-100 to-pink-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <AlertCircle className="w-12 h-12 text-red-600" />
+              </div>
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">Checkout</h2>
+              <p className="text-xl text-gray-600 mb-8">Your cart is empty. Add some items to proceed with checkout.</p>
+              <button
+                onClick={() => navigate('/shop')}
+                className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
+              >
+                <ArrowLeft className="w-5 h-5 mr-2" />
+                Continue Shopping
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -118,104 +130,130 @@ export default function Checkout() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-bold text-gray-900 mb-8">Checkout</h2>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Header */}
+        <div className="mb-8">
+          <button
+            onClick={() => navigate('/cart')}
+            className="inline-flex items-center space-x-2 text-indigo-600 hover:text-indigo-800 mb-6 transition-colors group"
+          >
+            <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
+            <span className="font-medium">Back to Cart</span>
+          </button>
+          <h2 className="text-4xl font-bold text-gray-900 mb-2">Checkout</h2>
+          <p className="text-lg text-gray-600">Complete your order securely</p>
+        </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Address Form */}
-          <div className="bg-white shadow rounded-lg p-6">
-            <h3 className="text-lg font-medium text-gray-900 mb-6">Shipping Address</h3>
+          <div className="bg-white rounded-2xl shadow-lg p-8">
+            <div className="flex items-center mb-6">
+              <MapPin className="w-6 h-6 text-indigo-600 mr-3" />
+              <h3 className="text-2xl font-bold text-gray-900">Shipping Address</h3>
+            </div>
             
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label htmlFor="fullName" className="block text-sm font-medium text-gray-700">
-                  Full Name
-                </label>
-                <input
-                  type="text"
-                  id="fullName"
-                  required
-                  className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                  value={address.fullName}
-                  onChange={(e) => handleAddressChange('fullName', e.target.value)}
-                />
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="fullName" className="block text-sm font-semibold text-gray-700 mb-2 flex items-center">
+                    <User className="w-4 h-4 mr-2" />
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    id="fullName"
+                    required
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
+                    value={address.fullName}
+                    onChange={(e) => handleAddressChange('fullName', e.target.value)}
+                    placeholder="Enter your full name"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="phone" className="block text-sm font-semibold text-gray-700 mb-2 flex items-center">
+                    <Phone className="w-4 h-4 mr-2" />
+                    Phone Number
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    required
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
+                    value={address.phone}
+                    onChange={(e) => handleAddressChange('phone', e.target.value)}
+                    placeholder="(555) 123-4567"
+                  />
+                </div>
               </div>
 
               <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
-                  Phone Number
-                </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  required
-                  className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                  value={address.phone}
-                  onChange={(e) => handleAddressChange('phone', e.target.value)}
-                />
-              </div>
-
-              <div>
-                <label htmlFor="address" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="address" className="block text-sm font-semibold text-gray-700 mb-2 flex items-center">
+                  <MapPin className="w-4 h-4 mr-2" />
                   Street Address
                 </label>
                 <input
                   type="text"
                   id="address"
                   required
-                  className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
                   value={address.address}
                   onChange={(e) => handleAddressChange('address', e.target.value)}
+                  placeholder="123 Main Street"
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div>
-                  <label htmlFor="city" className="block text-sm font-medium text-gray-700">
+                  <label htmlFor="city" className="block text-sm font-semibold text-gray-700 mb-2">
                     City
                   </label>
                   <input
                     type="text"
                     id="city"
                     required
-                    className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
                     value={address.city}
                     onChange={(e) => handleAddressChange('city', e.target.value)}
+                    placeholder="City"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="state" className="block text-sm font-medium text-gray-700">
+                  <label htmlFor="state" className="block text-sm font-semibold text-gray-700 mb-2">
                     State
                   </label>
                   <input
                     type="text"
                     id="state"
                     required
-                    className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
                     value={address.state}
                     onChange={(e) => handleAddressChange('state', e.target.value)}
+                    placeholder="State"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="zipCode" className="block text-sm font-semibold text-gray-700 mb-2">
+                    ZIP Code
+                  </label>
+                  <input
+                    type="text"
+                    id="zipCode"
+                    required
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
+                    value={address.zipCode}
+                    onChange={(e) => handleAddressChange('zipCode', e.target.value)}
+                    placeholder="12345"
                   />
                 </div>
               </div>
 
-              <div>
-                <label htmlFor="zipCode" className="block text-sm font-medium text-gray-700">
-                  ZIP Code
-                </label>
-                <input
-                  type="text"
-                  id="zipCode"
-                  required
-                  className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                  value={address.zipCode}
-                  onChange={(e) => handleAddressChange('zipCode', e.target.value)}
-                />
-              </div>
-
               {error && (
-                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                <div className="bg-red-50 border-2 border-red-200 text-red-700 px-4 py-3 rounded-xl flex items-center">
+                  <AlertCircle className="w-5 h-5 mr-2" />
                   {error}
                 </div>
               )}
@@ -223,35 +261,69 @@ export default function Checkout() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+                className="w-full flex justify-center items-center py-4 px-6 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold rounded-xl hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 disabled:transform-none"
               >
-                {loading ? 'Placing Order...' : 'Place Order'}
+                {loading ? (
+                  <>
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                    Placing Order...
+                  </>
+                ) : (
+                  <>
+                    <CreditCard className="w-5 h-5 mr-2" />
+                    Place Order
+                  </>
+                )}
               </button>
             </form>
           </div>
 
           {/* Order Summary */}
-          <div className="bg-white shadow rounded-lg p-6">
-            <h3 className="text-lg font-medium text-gray-900 mb-6">Order Summary</h3>
+          <div className="bg-white rounded-2xl shadow-lg p-8">
+            <div className="flex items-center mb-6">
+              <CreditCard className="w-6 h-6 text-indigo-600 mr-3" />
+              <h3 className="text-2xl font-bold text-gray-900">Order Summary</h3>
+            </div>
             
-            <div className="space-y-4">
+            <div className="space-y-4 mb-6">
               {items.map((item) => (
-                <div key={item.id} className="flex justify-between items-center">
-                  <div>
-                    <h4 className="text-sm font-medium text-gray-900">{item.title}</h4>
-                    <p className="text-sm text-gray-500">Qty: {item.quantity}</p>
+                <div key={item.id} className="flex justify-between items-center py-4 border-b border-gray-100">
+                  <div className="flex items-center space-x-3">
+                    {item.image && (
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="w-12 h-12 object-cover rounded-lg"
+                      />
+                    )}
+                    <div>
+                      <h4 className="font-semibold text-gray-900">{item.title}</h4>
+                      <p className="text-sm text-gray-500 capitalize">Qty: {item.quantity}</p>
+                    </div>
                   </div>
-                  <p className="text-sm font-medium text-gray-900">
+                  <p className="font-bold text-indigo-600">
                     ${(item.price * item.quantity).toFixed(2)}
                   </p>
                 </div>
               ))}
-              
-              <div className="border-t border-gray-200 pt-4">
-                <div className="flex justify-between text-lg font-semibold">
-                  <span>Total</span>
-                  <span>${getTotal().toFixed(2)}</span>
-                </div>
+            </div>
+            
+            <div className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl p-4 mb-6">
+              <div className="flex justify-between items-center text-xl font-bold">
+                <span className="text-gray-900">Total</span>
+                <span className="text-indigo-600">${getTotal().toFixed(2)}</span>
+              </div>
+            </div>
+
+            {/* Security Features */}
+            <div className="space-y-3">
+              <div className="flex items-center text-sm text-gray-600">
+                <Lock className="w-4 h-4 mr-2 text-green-600" />
+                <span>Secure SSL encryption</span>
+              </div>
+              <div className="flex items-center text-sm text-gray-600">
+                <CheckCircle className="w-4 h-4 mr-2 text-green-600" />
+                <span>Your information is safe</span>
               </div>
             </div>
           </div>

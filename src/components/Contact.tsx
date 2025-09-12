@@ -35,95 +35,117 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [sending, setSending] = useState(false);
+  const [statusMessage, setStatusMessage] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
-    alert('Thank you for your message! We\'ll get back to you soon.');
-    setFormData({ name: '', email: '', phone: '', message: '' });
+    setSending(true);
+    setStatusMessage(null);
+    try {
+      const res = await fetch('/.netlify/functions/send-contact-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+      if (!res.ok) throw new Error('Failed to send message');
+      setStatusMessage('Message sent — we\'ll get back to you soon.');
+      setFormData({ name: '', email: '', phone: '', message: '' });
+    } catch (err: any) {
+      console.error(err);
+      setStatusMessage('Failed to send message. Please try again later.');
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
-    <section id="contact" ref={sectionRef} className="py-20 bg-gray-50">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className={`text-4xl md:text-5xl font-bold text-gray-800 mb-4 transition-all duration-1000 ${
+    <section id="contact" ref={sectionRef} className="py-16 bg-white">
+      <div className="max-w-5xl mx-auto px-6">
+        <div className="text-center mb-12">
+          <h2 className={`text-2xl font-light text-gray-900 mb-4 transition-all duration-1000 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}>
-            Contact Us
+            Get in Touch
           </h2>
-          <p className={`text-xl text-gray-600 max-w-2xl mx-auto transition-all duration-1000 delay-200 ${
+          <p className={`text-base text-gray-600 max-w-xl mx-auto leading-relaxed transition-all duration-1000 delay-200 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}>
-            Ready to elevate your event? Get in touch with us today
+            We'd love to hear about your event and help make it unforgettable
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-16 max-w-6xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-12 max-w-4xl mx-auto">
           {/* Contact Form */}
-          <div className={`bg-white rounded-2xl p-8 shadow-lg transition-all duration-1000 delay-400 ${
+          <div className={`transition-all duration-1000 delay-300 ${
             isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
           }`}>
-            <h3 className="text-2xl font-bold text-gray-800 mb-6">Send us a message</h3>
-            
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="space-y-4">
-                <div>
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Your Name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-gray-500 focus:outline-none transition-colors duration-300"
-                  />
-                </div>
-                
-                <div>
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Your Email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-gray-500 focus:outline-none transition-colors duration-300"
-                  />
-                </div>
-                
-                <div>
-                  <input
-                    type="tel"
-                    name="phone"
-                    placeholder="Your Phone"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-gray-500 focus:outline-none transition-colors duration-300"
-                  />
-                </div>
-                
-                <div>
-                  <textarea
-                    name="message"
-                    placeholder="Your Message"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    required
-                    rows={5}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-gray-500 focus:outline-none transition-colors duration-300 resize-none"
-                  ></textarea>
-                </div>
-              </div>
+            <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
+              <h3 className="text-lg font-medium text-gray-900 mb-6">Send us a message</h3>
               
-              <button
-                type="submit"
-                className="w-full bg-black text-white py-4 rounded-lg font-semibold hover:bg-gray-800 transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center justify-center space-x-2"
-              >
-                <Send size={20} />
-                <span>Send Message</span>
-              </button>
-            </form>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="space-y-4">
+                  <div>
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder="Your name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full px-3 py-2.5 text-gray-900 placeholder-gray-500 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400 transition-all duration-200 text-sm"
+                    />
+                  </div>
+                  
+                  <div>
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Your email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full px-3 py-2.5 text-gray-900 placeholder-gray-500 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400 transition-all duration-200 text-sm"
+                    />
+                  </div>
+                  
+                  <div>
+                    <input
+                      type="tel"
+                      name="phone"
+                      placeholder="Your phone number"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      className="w-full px-3 py-2.5 text-gray-900 placeholder-gray-500 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400 transition-all duration-200 text-sm"
+                    />
+                  </div>
+                  
+                  <div>
+                    <textarea
+                      name="message"
+                      placeholder="Tell us about your event..."
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      required
+                      rows={4}
+                      className="w-full px-3 py-2.5 text-gray-900 placeholder-gray-500 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400 transition-all duration-200 resize-none text-sm"
+                    />
+                  </div>
+                </div>
+                
+                <button
+                  type="submit"
+                  disabled={sending}
+                  className="w-full bg-gray-900 text-white py-2.5 px-4 rounded-lg font-medium hover:bg-gray-800 transition-all duration-200 flex items-center justify-center space-x-2 text-sm disabled:opacity-60"
+                >
+                  <Send size={16} />
+                  <span>{sending ? 'Sending...' : 'Send Message'}</span>
+                </button>
+                {statusMessage && (
+                  <div className="text-sm mt-2 text-center text-gray-700">{statusMessage}</div>
+                )}
+              </form>
+            </div>
           </div>
 
           {/* Contact Information */}
@@ -131,70 +153,80 @@ const Contact = () => {
             isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'
           }`}>
             <div>
-              <h3 className="text-2xl font-bold text-gray-800 mb-6">Get in touch</h3>
+              <h3 className="text-lg font-medium text-gray-900 mb-6">Contact Information</h3>
               
-              <div className="space-y-6">
+              <div className="space-y-4">
                 <a
-                  href="tel:+1234567890"
-                  className="flex items-center space-x-4 p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+                  href="tel:559-552-3768"
+                  className="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors duration-200 group"
                 >
-                  <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white">
-                    <Phone size={20} />
+                  <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center text-gray-600 group-hover:bg-gray-200 transition-colors duration-200 flex-shrink-0">
+                    <Phone size={16} />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-800">Call Now</h4>
-                    <p className="text-gray-600">+1 (234) 567-8900</p>
+                    <h4 className="font-medium text-gray-900 mb-1 text-sm">Phone</h4>
+                    <p className="text-gray-600 text-sm">(559) 552-3768</p>
                   </div>
                 </a>
                 
                 <a
-                  href="mailto:info@rentalwarehouse.com"
-                  className="flex items-center space-x-4 p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+                  href="mailto:therentalwarehouse1@gmail.com"
+                  className="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors duration-200 group"
                 >
-                  <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white">
-                    <Mail size={20} />
+                  <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center text-gray-600 group-hover:bg-gray-200 transition-colors duration-200 flex-shrink-0">
+                    <Mail size={16} />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-800">Email Us</h4>
-                    <p className="text-gray-600">info@rentalwarehouse.com</p>
+                    <h4 className="font-medium text-gray-900 mb-1 text-sm">Email</h4>
+                    <p className="text-gray-600 text-sm break-all">therentalwarehouse1@gmail.com</p>
                   </div>
                 </a>
                 
                 <a
-                  href="https://instagram.com/rentalwarehouse"
+                  href="https://instagram.com/therentalwarehouse"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center space-x-4 p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+                  className="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors duration-200 group"
                 >
-                  <div className="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white">
-                    <Instagram size={20} />
+                  <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center text-gray-600 group-hover:bg-gray-200 transition-colors duration-200 flex-shrink-0">
+                    <Instagram size={16} />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-800">Follow Us</h4>
-                    <p className="text-gray-600">@rentalwarehouse</p>
+                    <h4 className="font-medium text-gray-900 mb-1 text-sm">Instagram</h4>
+                    <p className="text-gray-600 text-sm">@therentalwarehouse</p>
                   </div>
                 </a>
                 
-                <div className="flex items-center space-x-4 p-4 bg-white rounded-lg shadow-md">
-                  <div className="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center text-white">
-                    <MapPin size={20} />
+                <div className="flex items-start space-x-3 p-3">
+                  <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center text-gray-600 flex-shrink-0">
+                    <MapPin size={16} />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-800">Location</h4>
-                    <p className="text-gray-600">123 Event Street, City, State 12345</p>
+                    <h4 className="font-medium text-gray-900 mb-1 text-sm">Address</h4>
+                    <p className="text-gray-600 text-sm">641 Walnut Dr</p>
+                    <p className="text-gray-600 text-sm">Fowler, CA 93625</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Map Placeholder */}
-            <div className="bg-white rounded-lg shadow-md overflow-hidden">
-              <div className="h-64 bg-gray-200 flex items-center justify-center">
-                <div className="text-center text-gray-500">
-                  <MapPin size={48} className="mx-auto mb-2" />
-                  <p>Interactive Map</p>
-                  <p className="text-sm">Location: 123 Event Street</p>
-                </div>
+            {/* Map */}
+            <div className="bg-gray-50 rounded-lg overflow-hidden border border-gray-200">
+              <div className="p-3 border-b border-gray-200">
+                <h4 className="font-medium text-gray-900 text-sm">Our Location</h4>
+                <p className="text-xs text-gray-600">Find us on the map</p>
+              </div>
+              <div className="h-48">
+                <iframe
+                  title="The Rental Warehouse Location"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3202.235661485038!2d-119.68420189999999!3d36.620713699999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8094f14e23bb4b43%3A0x31f7084cf3123639!2s641%20Walnut%20Dr%2C%20Fowler%2C%20CA%2093625%2C%20USA!5e0!3m2!1sen!2sin!4v1757711692531!5m2!1sen!2sin"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen={true}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
               </div>
             </div>
           </div>
