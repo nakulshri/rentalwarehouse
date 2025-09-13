@@ -183,7 +183,7 @@ const Contact = () => {
                 </a>
                 
                 <a
-                  href="https://instagram.com/therentalwarehouse"
+                  href="https://instagram.com/the_rental_warehouse"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition-colors duration-200 group"
@@ -193,7 +193,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <h4 className="font-medium text-gray-900 mb-1 text-sm">Instagram</h4>
-                    <p className="text-gray-600 text-sm">@therentalwarehouse</p>
+                    <p className="text-gray-600 text-sm">@the_rental_warehouse</p>
                   </div>
                 </a>
                 
