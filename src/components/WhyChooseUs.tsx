@@ -81,7 +81,7 @@ const WhyChooseUs = () => {
   ];
 
   return (
-    <section id="why-choose-us" ref={sectionRef} className="py-32 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
+    <section id="why-choose-us" ref={sectionRef} className="py-16 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
@@ -106,7 +106,7 @@ const WhyChooseUs = () => {
       </div>
 
       <div className="container mx-auto px-6 relative">
-        <div className="text-center mb-20">
+  <div className="text-center mb-12">
           <div className={`transition-all duration-1000 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}>
@@ -116,7 +116,7 @@ const WhyChooseUs = () => {
             </span>
           </div>
           
-          <h2 className={`text-5xl md:text-7xl font-black text-gray-900 mb-6 leading-tight transition-all duration-1000 delay-200 ${
+          <h2 className={`text-3xl md:text-4xl font-black text-gray-900 mb-4 leading-tight transition-all duration-1000 delay-200 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}>
             Excellence in Every
@@ -125,14 +125,14 @@ const WhyChooseUs = () => {
             </span>
           </h2>
           
-          <p className={`text-xl text-gray-600 max-w-4xl mx-auto font-light transition-all duration-1000 delay-400 ${
+          <p className={`text-base text-gray-600 max-w-3xl mx-auto font-light transition-all duration-1000 delay-400 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}>
             We're committed to delivering exceptional service and premium quality that makes your event truly memorable
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, index) => (
             <div
               key={index}
@@ -149,24 +149,24 @@ const WhyChooseUs = () => {
                 hoveredCard === index ? 'scale-105 -translate-y-2' : ''
               }`}>
                 {/* Background Gradient */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${feature.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl`}></div>
+                <div className={`absolute inset-0 bg-gradient-to-br ${feature.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl`}></div>
                 
                 {/* Animated Border */}
                 <div className={`absolute inset-0 rounded-3xl bg-gradient-to-r ${feature.gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-500`}></div>
                 
                 <div className="relative z-10 text-center h-full flex flex-col">
                   {/* Icon */}
-                  <div className={`mb-6 w-20 h-20 mx-auto rounded-2xl bg-gradient-to-r ${feature.gradient} flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
-                    {feature.icon}
+                  <div className={`mb-4 w-16 h-16 mx-auto rounded-2xl bg-gradient-to-r ${feature.gradient} flex items-center justify-center text-white group-hover:scale-105 transition-transform duration-300 shadow-md`}>
+                    {React.cloneElement(feature.icon as any, { className: 'w-6 h-6' })}
                   </div>
                   
                   {/* Title */}
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-indigo-600 transition-colors duration-300">
+                  <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-indigo-600 transition-colors duration-300">
                     {feature.title}
                   </h3>
                   
                   {/* Description */}
-                  <p className="text-gray-600 leading-relaxed mb-6 flex-grow">
+                  <p className="text-sm text-gray-600 leading-relaxed mb-4 flex-grow">
                     {feature.description}
                   </p>
 
@@ -183,26 +183,26 @@ const WhyChooseUs = () => {
         </div>
 
         {/* Bottom CTA Section */}
-        <div className={`text-center mt-20 transition-all duration-1000 delay-1200 ${
+        <div className={`text-center mt-12 transition-all duration-1000 delay-1200 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}>
-          <div className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-3xl p-12 text-white">
-            <h3 className="text-3xl md:text-4xl font-bold mb-4">
+          <div className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-8 text-white">
+            <h3 className="text-2xl md:text-3xl font-bold mb-3">
               Ready to Create Something Amazing?
             </h3>
-            <p className="text-xl text-indigo-100 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg text-indigo-100 mb-6 max-w-2xl mx-auto">
               Let us help you bring your vision to life with our premium rental equipment and exceptional service
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <button 
                 onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-                className="px-8 py-4 bg-white text-indigo-600 rounded-2xl font-bold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg"
+                className="px-6 py-3 bg-white text-indigo-600 rounded-2xl font-bold text-base hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-md"
               >
                 Get Started Today
               </button>
               <button 
                 onClick={() => document.getElementById('gallery')?.scrollIntoView({ behavior: 'smooth' })}
-                className="px-8 py-4 border-2 border-white text-white rounded-2xl font-bold text-lg hover:bg-white hover:text-indigo-600 transition-all duration-300 transform hover:scale-105"
+                className="px-6 py-3 border-2 border-white text-white rounded-2xl font-bold text-base hover:bg-white hover:text-indigo-600 transition-all duration-300 transform hover:scale-105"
               >
                 View Our Work
               </button>
