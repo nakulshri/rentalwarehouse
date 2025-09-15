@@ -1,0 +1,10 @@
+# Allow all crawlers but disallow admin and user-specific pages
+User-agent: *
+Disallow: /admin
+Disallow: /cart
+Disallow: /checkout
+Disallow: /orders
+Disallow: /order-confirmation
+
+# Point crawlers to the sitemap
+Sitemap: https://therentalwarehouse.net/sitemap.xml

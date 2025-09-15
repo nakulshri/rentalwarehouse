@@ -23,7 +23,6 @@ const ShopPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [sortBy, setSortBy] = useState('name');
-  const [showFilters, setShowFilters] = useState(false);
   const { addToCart } = useCartStore();
   const { currentUser } = useAuth();
   const navigate = useNavigate();
