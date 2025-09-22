@@ -116,7 +116,7 @@ const Header = () => {
               <div className="hidden md:flex space-x-3">
                 <NavLink to="/login" variant="ghost">Sign In</NavLink>
                   <NavLink to="/signup" variant="primary">Sign Up</NavLink>
-                  <NavLink to="/#contact" variant="outline">Contact Us</NavLink>
+                  
               </div>
             )}
             {/* Mobile Toggle */}
