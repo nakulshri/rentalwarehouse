@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ShoppingCart, User, Package, ChevronDown } from 'lucide-react';
+import { Menu, X, ShoppingCart, User, Package } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useCartStore } from '../store/cartStore';
 
@@ -33,9 +33,14 @@ const Header = () => {
           {/* Logo - always left */}
           <Link
             to="/"
-            className="flex items-center space-x-2 group hover:opacity-90 transition"
+            className="flex items-center space-x-3 group hover:opacity-90 transition"
             aria-label="Home"
           >
+            <img 
+              src="/company-logo.jpg" 
+              alt="The Rental Warehouse" 
+              className="h-8 md:h-10 w-auto object-contain"
+            />
             <span className="text-xl tracking-wide font-extrabold text-white drop-shadow-sm">
               THE RENTAL WAREHOUSE
             </span>

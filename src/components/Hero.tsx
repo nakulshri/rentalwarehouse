@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 
 const Hero = () => {
@@ -25,6 +25,14 @@ const Hero = () => {
 
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
         <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          {/* Company Logo */}
+          <div className="mb-8 flex justify-center">
+            <img 
+              src="/company-logo.jpg" 
+              alt="The Rental Warehouse" 
+              className="h-16 sm:h-20 md:h-24 lg:h-28 w-auto object-contain logo-hero max-w-xs mx-auto"
+            />
+          </div>
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-light text-gray-900 mb-6 leading-tight">
             The Rental Warehouse
           </h1>

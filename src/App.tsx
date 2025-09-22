@@ -34,6 +34,9 @@ const RentPage = React.lazy(() => import('./components/RentPage'));
 const BlogPage = React.lazy(() => import('./components/BlogPage'));
 const BlogDetail = React.lazy(() => import('./components/BlogDetail'));
 
+// 404 component
+const NotFound = React.lazy(() => import('./components/NotFound'));
+
 // Protected Route Component
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { currentUser, loading } = useAuth();
@@ -131,6 +134,9 @@ function AppContent() {
                 <CreateBlog />
               </AdminRoute>
             } />
+            
+            {/* Catch-all route for 404s */}
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </React.Suspense>
       </div>

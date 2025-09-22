@@ -5,7 +5,15 @@ const Footer = () => {
     <footer className="bg-gray-800 text-white py-12 relative">
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row items-center justify-between">
-          <div className="mb-6 md:mb-0">
+          <div className="mb-6 md:mb-0 flex flex-col items-center md:items-start">
+            {/* Company Logo */}
+            <div className="mb-4">
+              <img 
+                src="/company-logo.jpg" 
+                alt="The Rental Warehouse" 
+                className="h-12 md:h-16 w-auto object-contain logo-footer"
+              />
+            </div>
             <div className="text-2xl font-bold mb-2">
               The Rental Warehouse<span className="text-sm align-super">©</span>
             </div>
