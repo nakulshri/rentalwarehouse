@@ -30,7 +30,7 @@ const Hero = () => {
             <img 
               src="/company-logo.jpg" 
               alt="The Rental Warehouse" 
-              className="h-16 sm:h-20 md:h-24 lg:h-28 w-auto object-contain logo-hero max-w-xs mx-auto"
+              className="h-24 sm:h-32 md:h-40 lg:h-48 w-auto object-contain logo-hero max-w-lg mx-auto"
             />
           </div>
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-light text-gray-900 mb-6 leading-tight">

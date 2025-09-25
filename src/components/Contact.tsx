@@ -197,16 +197,6 @@ const Contact = () => {
                   </div>
                 </a>
                 
-                <div className="flex items-start space-x-3 p-3">
-                  <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center text-gray-600 flex-shrink-0">
-                    <MapPin size={16} />
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-gray-900 mb-1 text-sm">Address</h4>
-                    <p className="text-gray-600 text-sm">641 Walnut Dr</p>
-                    <p className="text-gray-600 text-sm">Fowler, CA 93625</p>
-                  </div>
-                </div>
               </div>
             </div>
 

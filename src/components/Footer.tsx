@@ -20,9 +20,7 @@ const Footer = () => {
             <p className="text-gray-400">
               © 2025 The Rental Warehouse. All rights reserved.
             </p>
-            <p className="text-gray-400 text-sm mt-1">
-              641 Walnut Dr, Fowler, CA 93625
-            </p>
+            
           </div>
 
           <div className="flex items-center space-x-4">
