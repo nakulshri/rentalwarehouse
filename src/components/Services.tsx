@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Palette, Utensils, Lightbulb, Star as Stage, ArrowRight } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { Palette, Utensils, Lightbulb, Star as Stage } from 'lucide-react';
 
 const Services = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -45,12 +45,7 @@ const Services = () => {
     }
   ];
 
-  const scrollToProducts = () => {
-    const element = document.getElementById('products');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  // CTA removed; scrollToProducts intentionally removed
 
   return (
     <section id="services" ref={sectionRef} className="py-16 bg-gray-50">
@@ -108,17 +103,7 @@ const Services = () => {
           ))}
         </div>
 
-        <div className={`text-center mt-12 transition-all duration-1000 delay-500 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-        }`}>
-          <button 
-            onClick={scrollToProducts}
-            className="px-6 py-2.5 bg-gray-900 text-white rounded-lg font-medium hover:bg-gray-800 transition-all duration-200 flex items-center space-x-2 mx-auto text-sm"
-          >
-            <span>View Our Products</span>
-            <ArrowRight size={16} />
-          </button>
-        </div>
+        {/* CTA removed per design request */}
       </div>
     </section>
   );

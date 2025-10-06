@@ -103,13 +103,13 @@ const ShopPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50">
-      {/* Hero Section */}
-      <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 text-white py-16">
+  {/* Hero Section */}
+  <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 text-white py-12 sm:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="flex items-center justify-center mb-4">
-              <ShoppingBag className="w-8 h-8 mr-3" />
-              <h1 className="text-5xl font-bold">Shop Our Products</h1>
+              <img src="/company-logo.jpg" alt="The Rental Warehouse" className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 object-contain mr-3" />
+              <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold">Shop Our Products</h1>
             </div>
             <p className="text-xl text-indigo-100 max-w-2xl mx-auto">
               Discover our premium collection of products available for purchase. 
@@ -192,19 +192,19 @@ const ShopPage = () => {
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
             {products.map((product: any) => (
               <div
                 key={product.id}
-                className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 overflow-hidden cursor-pointer border border-gray-100"
+                className="group bg-white rounded-lg shadow hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden cursor-pointer border border-gray-100"
                 onClick={() => handleViewProduct(product)}
               >
                 {/* Product Image */}
-                <div className="relative overflow-hidden h-64">
+                <div className="relative overflow-hidden h-40 sm:h-48 md:h-56">
                   <img
                     src={product.imageUrl}
                     alt={product.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   
@@ -231,23 +231,23 @@ const ShopPage = () => {
                 </div>
 
                 {/* Product Info */}
-                <div className="p-6">
+                <div className="p-3 sm:p-4">
                   <div className="mb-3">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors line-clamp-1">
+                    <h3 className="text-sm sm:text-base font-semibold text-gray-900 mb-1 group-hover:text-indigo-600 transition-colors line-clamp-1">
                       {product.name}
                     </h3>
-                    <p className="text-gray-600 text-sm line-clamp-2 leading-relaxed">
+                    <p className="text-gray-600 text-xs sm:text-sm line-clamp-2 leading-snug">
                       {product.description}
                     </p>
                   </div>
 
                   {/* Rating */}
-                  <div className="flex items-center mb-4">
+                  <div className="flex items-center mb-2">
                     <div className="flex items-center">
                       {[1, 2, 3, 4, 5].map((star) => (
                         <Star
                           key={star}
-                          size={16}
+                          size={12}
                           className="text-amber-400 fill-current"
                         />
                       ))}
@@ -262,17 +262,17 @@ const ShopPage = () => {
                     </div>
                     
                     {addedItems.has(product.id) ? (
-                      <button className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-6 py-2.5 rounded-xl font-semibold flex items-center space-x-2 shadow-lg transform scale-105">
+                      <button className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-3 py-2 rounded-md font-semibold flex items-center space-x-2 shadow-sm">
                         <Check className="w-4 h-4" />
-                        <span>Added!</span>
+                        <span className="text-sm">Added</span>
                       </button>
                     ) : (
                       <button 
                         onClick={(e) => handleAddToCart(product, e)}
-                        className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-6 py-2.5 rounded-xl font-semibold hover:from-indigo-600 hover:to-purple-700 transition-all duration-200 flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:scale-105"
+                        className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-3 py-2 rounded-md font-semibold hover:from-indigo-600 hover:to-purple-700 transition-all duration-150 flex items-center space-x-2 shadow"
                       >
                         <Plus className="w-4 h-4" />
-                        <span>Add to Cart</span>
+                        <span className="text-sm">Add</span>
                       </button>
                     )}
                   </div>

@@ -5,7 +5,7 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import Services from './components/Services';
 import Gallery from './components/Gallery';
-import WhyChooseUs from './components/WhyChooseUs';
+// WhyChooseUs removed per design request
 import RentalOptions from './components/RentalOptions';
 import SaleOptions from './components/SaleOptions';
 import Testimonials from './components/Testimonials';
@@ -88,7 +88,7 @@ function AppContent() {
                 <Gallery />
                 <RentalOptions />
                 <SaleOptions />
-                <WhyChooseUs />
+                {/* WhyChooseUs removed per design request */}
                 <Testimonials />
                 <Contact />
                 <Footer />

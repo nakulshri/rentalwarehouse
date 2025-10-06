@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Star, ChevronLeft, ChevronRight, Quote, Award } from 'lucide-react';
 
 const Testimonials = () => {
@@ -75,7 +75,7 @@ const Testimonials = () => {
   };
 
   return (
-    <section id="testimonials" ref={sectionRef} className="py-32 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
+    <section id="testimonials" ref={sectionRef} className="py-12 sm:py-16 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
@@ -85,26 +85,23 @@ const Testimonials = () => {
 
       <div className="container mx-auto px-6 relative">
         <div className="text-center mb-20">
-          <div className={`transition-all duration-1000 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          <div className={`transition-all duration-700 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}>
-            <span className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-full text-sm font-semibold uppercase tracking-wider mb-6 shadow-lg">
+            <span className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-full text-xs font-semibold uppercase tracking-wider mb-4 shadow">
               <Award className="w-4 h-4 mr-2" />
               Client Testimonials
             </span>
           </div>
           
-          <h2 className={`text-5xl md:text-7xl font-black text-gray-900 mb-6 leading-tight transition-all duration-1000 delay-200 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          <h2 className={`text-2xl sm:text-3xl md:text-4xl font-semibold text-gray-900 mb-4 leading-tight transition-all duration-700 delay-150 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}>
-            What Our Clients
-            <span className="block bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
-              Say About Us
-            </span>
+            What Our Clients Say About Us
           </h2>
           
-          <p className={`text-xl text-gray-600 max-w-4xl mx-auto font-light transition-all duration-1000 delay-400 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          <p className={`text-sm sm:text-base text-gray-600 max-w-3xl mx-auto font-light transition-all duration-700 delay-250 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}>
             Don't just take our word for it - hear from the satisfied clients who have experienced our premium service
           </p>
@@ -112,7 +109,7 @@ const Testimonials = () => {
 
         <div className="max-w-6xl mx-auto relative">
           {/* Main Testimonial Card */}
-          <div className="bg-white rounded-3xl p-12 md:p-16 shadow-2xl border border-gray-100 relative overflow-hidden">
+          <div className="bg-white rounded-2xl p-6 md:p-10 shadow-lg border border-gray-100 relative overflow-hidden">
             {/* Background Pattern */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full -translate-y-16 translate-x-16 opacity-50"></div>
             <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-green-100 to-emerald-100 rounded-full translate-y-12 -translate-x-12 opacity-50"></div>
@@ -128,27 +125,27 @@ const Testimonials = () => {
               >
                 <div className="relative z-10">
                   {/* Quote Icon */}
-                  <div className="flex justify-center mb-8">
-                    <div className="w-16 h-16 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full flex items-center justify-center">
-                      <Quote className="w-8 h-8 text-white" />
+                  <div className="flex justify-center mb-4">
+                    <div className="w-12 h-12 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full flex items-center justify-center">
+                      <Quote className="w-6 h-6 text-white" />
                     </div>
                   </div>
 
                   {/* Stars */}
-                  <div className="flex justify-center mb-8">
+                  <div className="flex justify-center mb-4">
                     {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-6 h-6 text-yellow-400 fill-current mx-1" />
+                      <Star key={i} className="w-4 h-4 text-yellow-400 fill-current mx-0.5" />
                     ))}
                   </div>
 
                   {/* Quote */}
-                  <blockquote className="text-2xl md:text-3xl text-gray-700 mb-12 leading-relaxed text-center font-light italic">
+                  <blockquote className="text-base sm:text-lg text-gray-700 mb-6 leading-relaxed text-center font-light italic">
                     "{testimonial.quote}"
                   </blockquote>
 
                   {/* Client Info */}
-                  <div className="flex items-center justify-center space-x-6">
-                    <div className="w-16 h-16 rounded-full overflow-hidden shadow-lg">
+                  <div className="flex items-center justify-center space-x-4">
+                    <div className="w-12 h-12 rounded-full overflow-hidden shadow-sm">
                       <img
                         src={testimonial.image}
                         alt={testimonial.name}
@@ -156,13 +153,13 @@ const Testimonials = () => {
                       />
                     </div>
                     <div className="text-center">
-                      <h4 className="text-2xl font-bold text-gray-900 mb-1">
+                      <h4 className="text-base sm:text-lg font-semibold text-gray-900 mb-1">
                         {testimonial.name}
                       </h4>
-                      <p className="text-gray-600 text-lg">
+                      <p className="text-gray-600 text-sm">
                         {testimonial.event}
                       </p>
-                      <p className="text-gray-500 text-sm">
+                      <p className="text-gray-500 text-xs">
                         {testimonial.location}
                       </p>
                     </div>
