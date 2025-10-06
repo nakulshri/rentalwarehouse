@@ -36,12 +36,12 @@ const Header = () => {
             className="flex items-center space-x-3 group hover:opacity-90 transition"
             aria-label="Home"
           >
-            <img
-              src="/company-logo.jpg"
-              alt="The Rental Warehouse"
-              className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 lg:h-20 lg:w-20 object-contain"
+            <img 
+              src="/company-logo.jpg" 
+              alt="The Rental Warehouse" 
+              className="h-8 md:h-10 w-auto object-contain"
             />
-            <span className="text-sm sm:text-base md:text-lg tracking-wide font-extrabold text-white drop-shadow-sm hidden xs:inline">
+            <span className="text-xl tracking-wide font-extrabold text-white drop-shadow-sm">
               THE RENTAL WAREHOUSE
             </span>
           </Link>

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Phone, Instagram, MapPin, Mail, Send } from 'lucide-react';
+import { Phone, Instagram, Mail, Send } from 'lucide-react';
 
 const Contact = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -200,23 +200,23 @@ const Contact = () => {
               </div>
             </div>
 
-            {/* Map */}
+            {/* Location card (link to Google Maps instead of embedding) */}
             <div className="bg-gray-50 rounded-lg overflow-hidden border border-gray-200">
               <div className="p-3 border-b border-gray-200">
                 <h4 className="font-medium text-gray-900 text-sm">Our Location</h4>
-                <p className="text-xs text-gray-600">Find us on the map</p>
+                <p className="text-xs text-gray-600">Open in Google Maps</p>
               </div>
-              <div className="h-48">
-                <iframe
-                  title="The Rental Warehouse Location"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3202.235661485038!2d-119.68420189999999!3d36.620713699999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8094f14e23bb4b43%3A0x31f7084cf3123639!2s641%20Walnut%20Dr%2C%20Fowler%2C%20CA%2093625%2C%20USA!5e0!3m2!1sen!2sin!4v1757711692531!5m2!1sen!2sin"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen={true}
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
+              <div className="p-4">
+                <p className="text-sm text-gray-700 mb-2">641 Walnut Dr, Fowler, CA 93625</p>
+                <p className="text-xs text-gray-500 mb-4">Open hours by appointment. Please contact us to schedule a visit.</p>
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=641+Walnut+Dr+Fowler+CA+93625"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center px-3 py-2 bg-indigo-600 text-white rounded-md text-sm hover:bg-indigo-700"
+                >
+                  Open in Google Maps
+                </a>
               </div>
             </div>
           </div>

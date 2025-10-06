@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, Sparkles, ShoppingBag, Star, Tag } from 'lucide-react';
 
@@ -172,11 +172,7 @@ const SaleOptions = () => {
                     {category.description}
                   </p>
 
-                  <div className="flex items-center justify-between">
-                    <span className={`text-sm font-semibold text-gray-500 px-3 py-1 bg-gray-100 rounded-full`}>
-                      {category.count}
-                    </span>
-                    
+                  <div className="flex items-center justify-center space-x-4">
                     <div className="flex items-center text-green-600 font-semibold text-sm group-hover:translate-x-1 transition-transform duration-300">
                       Shop Now
                       <ArrowRight className="w-4 h-4 ml-1" />

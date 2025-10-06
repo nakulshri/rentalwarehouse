@@ -108,7 +108,7 @@ const ShopPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="flex items-center justify-center mb-4">
-              <img src="/company-logo.jpg" alt="The Rental Warehouse" className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 object-contain mr-3" />
+              <img src="/company-logo.jpg" alt="The Rental Warehouse" className="w-20 h-20 sm:w-28 sm:h-28 md:w-36 md:h-36 object-contain mr-3" />
               <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold">Shop Our Products</h1>
             </div>
             <p className="text-xl text-indigo-100 max-w-2xl mx-auto">
@@ -255,26 +255,28 @@ const ShopPage = () => {
                     <span className="text-sm text-gray-500 ml-2">(4.9)</span>
                   </div>
 
-                  {/* Price and Action */}
-                  <div className="flex items-center justify-between">
-                    <div className="text-right">
+                  {/* Price and Action - stacked on mobile to avoid overlap */}
+                  <div className="flex flex-col sm:flex-row items-center sm:justify-between gap-2">
+                    <div className="w-full sm:w-auto text-center sm:text-right">
                       <span className="text-sm text-gray-500 italic">Contact for pricing</span>
                     </div>
-                    
-                    {addedItems.has(product.id) ? (
-                      <button className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-3 py-2 rounded-md font-semibold flex items-center space-x-2 shadow-sm">
-                        <Check className="w-4 h-4" />
-                        <span className="text-sm">Added</span>
-                      </button>
-                    ) : (
-                      <button 
-                        onClick={(e) => handleAddToCart(product, e)}
-                        className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-3 py-2 rounded-md font-semibold hover:from-indigo-600 hover:to-purple-700 transition-all duration-150 flex items-center space-x-2 shadow"
-                      >
-                        <Plus className="w-4 h-4" />
-                        <span className="text-sm">Add</span>
-                      </button>
-                    )}
+
+                    <div className="w-full sm:w-auto flex justify-center sm:justify-end">
+                      {addedItems.has(product.id) ? (
+                        <button className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-3 py-2 rounded-md font-semibold flex items-center space-x-2 shadow-sm min-w-[88px] justify-center">
+                          <Check className="w-4 h-4" />
+                          <span className="text-sm">Added</span>
+                        </button>
+                      ) : (
+                        <button 
+                          onClick={(e) => handleAddToCart(product, e)}
+                          className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-3 py-2 rounded-md font-semibold hover:from-indigo-600 hover:to-purple-700 transition-all duration-150 flex items-center space-x-2 shadow min-w-[72px] justify-center"
+                        >
+                          <Plus className="w-4 h-4" />
+                          <span className="text-sm">Add</span>
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>

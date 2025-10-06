@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, Sparkles, Utensils, Palette, Sofa, Lightbulb } from 'lucide-react';
 
@@ -163,11 +163,7 @@ const RentalOptions = () => {
                     {category.description}
                   </p>
 
-                  <div className="flex items-center justify-between">
-                    <span className={`text-sm font-semibold text-gray-500 px-3 py-1 bg-gray-100 rounded-full`}>
-                      {category.count}
-                    </span>
-                    
+                  <div className="flex items-center justify-center">
                     <div className="flex items-center text-indigo-600 font-semibold text-sm group-hover:translate-x-1 transition-transform duration-300">
                       Explore
                       <ArrowRight className="w-4 h-4 ml-1" />
