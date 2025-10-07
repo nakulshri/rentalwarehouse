@@ -13,7 +13,7 @@ const Testimonials = () => {
       rating: 5,
       quote: "The Rental Warehouse transformed our wedding into a fairy tale. Their attention to detail and premium quality equipment made our special day absolutely perfect. The team was professional, punctual, and exceeded all our expectations.",
       image: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop&crop=face",
-      location: "Fresno, CA"
+  location: "Local Customer"
     },
     {
       name: "Michael Chen",
@@ -21,7 +21,7 @@ const Testimonials = () => {
       rating: 5,
       quote: "Professional service from start to finish. The lighting setup was spectacular and really elevated our company's annual gala. Highly recommended! The team's expertise and attention to detail made our event unforgettable.",
       image: "https://images.pexels.com/photos/1040880/pexels-photo-1040880.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop&crop=face",
-      location: "Fowler, CA"
+  location: "Local Customer"
     },
     {
       name: "Emily Rodriguez",
@@ -29,7 +29,7 @@ const Testimonials = () => {
       rating: 5,
       quote: "Amazing customer service and beautiful decor pieces. They helped bring my vision to life and made the planning process so smooth and enjoyable. The quality of their equipment is outstanding.",
       image: "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop&crop=face",
-      location: "Fresno, CA"
+  location: "Local Customer"
     },
     {
       name: "David Thompson",
@@ -37,7 +37,7 @@ const Testimonials = () => {
       rating: 5,
       quote: "Outstanding quality and timely delivery. The crockery was elegant and the stage setup was exactly what we envisioned. Thank you for making our anniversary memorable! The team's professionalism was exceptional.",
       image: "https://images.pexels.com/photos/1040881/pexels-photo-1040881.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop&crop=face",
-      location: "Fowler, CA"
+  location: "Local Customer"
     }
   ];
 

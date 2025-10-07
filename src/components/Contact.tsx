@@ -200,24 +200,9 @@ const Contact = () => {
               </div>
             </div>
 
-            {/* Location card (link to Google Maps instead of embedding) */}
-            <div className="bg-gray-50 rounded-lg overflow-hidden border border-gray-200">
-              <div className="p-3 border-b border-gray-200">
-                <h4 className="font-medium text-gray-900 text-sm">Our Location</h4>
-                <p className="text-xs text-gray-600">Open in Google Maps</p>
-              </div>
-              <div className="p-4">
-                <p className="text-sm text-gray-700 mb-2">641 Walnut Dr, Fowler, CA 93625</p>
-                <p className="text-xs text-gray-500 mb-4">Open hours by appointment. Please contact us to schedule a visit.</p>
-                <a
-                  href="https://www.google.com/maps/search/?api=1&query=641+Walnut+Dr+Fowler+CA+93625"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center px-3 py-2 bg-indigo-600 text-white rounded-md text-sm hover:bg-indigo-700"
-                >
-                  Open in Google Maps
-                </a>
-              </div>
+            {/* Location removed by request */}
+            <div className="bg-gray-50 rounded-lg overflow-hidden border border-gray-200 p-4">
+              <p className="text-sm text-gray-700">Location details have been removed. Please contact us via phone or email to schedule appointments.</p>
             </div>
           </div>
         </div>

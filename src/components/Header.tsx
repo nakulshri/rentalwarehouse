@@ -29,7 +29,7 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-50 bg-[#181622] text-white border-b border-[#37323D] shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-14 md:h-16">
           {/* Logo - always left */}
           <Link
             to="/"
@@ -39,22 +39,23 @@ const Header = () => {
             <img 
               src="/company-logo.jpg" 
               alt="The Rental Warehouse" 
-              className="h-8 md:h-10 w-auto object-contain"
+              className="h-6 md:h-10 w-auto object-contain max-w-[48px] md:max-w-none"
             />
-            <span className="text-xl tracking-wide font-extrabold text-white drop-shadow-sm">
+            {/* hide the large text on small screens to avoid overflow; keep logo visible */}
+            <span className="hidden sm:inline-block text-xl tracking-wide font-extrabold text-white drop-shadow-sm">
               THE RENTAL WAREHOUSE
             </span>
           </Link>
 
           {/* Right side nav group */}
-          <div className="flex items-center space-x-6">
+          <div className="flex items-center space-x-3 md:space-x-6">
             {/* Nav links (desktop only) */}
             <nav className="hidden md:flex items-center space-x-6 text-sm font-semibold">
               <NavLink to="/blogs">Blog</NavLink>
             </nav>
             {/* Cart */}
-            <Link to="/cart" className="relative group" aria-label="Cart">
-              <ShoppingCart className="w-6 h-6 transition-colors hover:text-indigo-400" />
+            <Link to="/cart" className="relative group h-9 w-9 flex items-center justify-center" aria-label="Cart">
+              <ShoppingCart className="w-5 h-5 transition-colors hover:text-indigo-400" />
               {getItemCount() > 0 && (
                 <span className="absolute -top-2 -right-2 min-w-[1.3rem] h-5 px-1 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-bold border-2 border-[#181622] shadow">
                   {getItemCount()}
@@ -122,7 +123,7 @@ const Header = () => {
             {/* Mobile Toggle */}
             <button
               onClick={() => setIsMobileMenuOpen(open => !open)}
-              className="md:hidden ml-2 p-2 -mr-2 rounded-lg hover:bg-white/10 focus:bg-white/10 transition-colors duration-200"
+              className="md:hidden ml-2 p-2 rounded-lg hover:bg-white/10 focus:bg-white/10 transition-colors duration-200"
               aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
             >
               {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}

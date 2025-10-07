@@ -82,6 +82,55 @@ html {
   input, textarea, select {
     font-size: 16px; /* Prevents zoom on iOS */
   }
+
+  /* Global mobile shrink overrides */
+  h1, h2, h3 {
+    line-height: 1.15;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+  }
+
+  h1 { font-size: 20px; }
+  h2 { font-size: 18px; }
+  h3 { font-size: 16px; }
+
+  p, .text-base, .text-sm {
+    font-size: 14px;
+  }
+
+  /* Shrink card padding and image heights on mobile */
+  .card {
+    padding: 0.75rem;
+  }
+
+  img, .object-cover, .object-contain {
+    max-height: 220px;
+    height: auto;
+    width: 100%;
+  }
+
+  /* Reduce hero section content size but keep hero logo untouched via .logo-hero */
+  .hero-content {
+    padding: 1rem 0;
+  }
+
+  /* Tighter buttons */
+  .btn-primary, .btn-secondary, .btn-ghost, button, a.inline-flex {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    font-size: 14px;
+    min-height: 40px;
+  }
+
+  /* Reduce spacing in testimonial and hero cards */
+  .testimonial-card, .hero-card {
+    padding: 0.75rem;
+  }
+
+  /* Reduce margins for sections */
+  section { padding-top: 1.25rem; padding-bottom: 1.25rem; }
 }
 
 /* Tablet optimizations */

@@ -196,7 +196,7 @@ const ShopPage = () => {
             {products.map((product: any) => (
               <div
                 key={product.id}
-                className="group bg-white rounded-lg shadow hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden cursor-pointer border border-gray-100"
+                className="group card overflow-hidden cursor-pointer border border-gray-100"
                 onClick={() => handleViewProduct(product)}
               >
                 {/* Product Image */}

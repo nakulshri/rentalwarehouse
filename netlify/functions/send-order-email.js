@@ -43,7 +43,7 @@ exports.handler = async (event) => {
               <h3 style="color: #059669; margin-top: 0;">Contact Information</h3>
               <p style="margin: 0.5rem 0; color: #374151;"><strong>Phone:</strong> (559) 552-3768</p>
               <p style="margin: 0.5rem 0; color: #374151;"><strong>Email:</strong> therentalwarehouse1@gmail.com</p>
-              <p style="margin: 0.5rem 0; color: #374151;"><strong>Address:</strong> 641 Walnut Dr, Fowler, CA 93625</p>
+              <!-- Address removed per site request -->
             </div>
             
             <p style="color: #6b7280; margin-top: 2rem;">
