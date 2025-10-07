@@ -32,7 +32,7 @@ const SaleOptions = () => {
       icon: <ShoppingBag className="w-8 h-8" />,
       gradient: "from-amber-500 to-orange-500",
       bgGradient: "from-amber-50 to-orange-50",
-      count: "50+ Items",
+      
       badge: "Best Seller"
     },
     {
@@ -43,7 +43,7 @@ const SaleOptions = () => {
       icon: <Star className="w-8 h-8" />,
       gradient: "from-pink-500 to-rose-500",
       bgGradient: "from-pink-50 to-rose-50",
-      count: "30+ Items",
+      
       badge: "New"
     },
     {
@@ -54,7 +54,7 @@ const SaleOptions = () => {
       icon: <Tag className="w-8 h-8" />,
       gradient: "from-yellow-500 to-amber-500",
       bgGradient: "from-yellow-50 to-amber-50",
-      count: "25+ Items",
+      
       badge: "Limited"
     },
     {
@@ -65,7 +65,7 @@ const SaleOptions = () => {
       icon: <ShoppingBag className="w-8 h-8" />,
       gradient: "from-green-500 to-emerald-500",
       bgGradient: "from-green-50 to-emerald-50",
-      count: "20+ Items",
+      
       badge: "Premium"
     },
   ];

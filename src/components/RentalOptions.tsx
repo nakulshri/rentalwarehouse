@@ -32,7 +32,7 @@ const RentalOptions = () => {
       icon: <Utensils className="w-8 h-8" />,
       gradient: "from-amber-500 to-orange-500",
       bgGradient: "from-amber-50 to-orange-50",
-      count: "200+ Items"
+      
     },
     {
       id: 2,
@@ -42,7 +42,7 @@ const RentalOptions = () => {
       icon: <Palette className="w-8 h-8" />,
       gradient: "from-pink-500 to-rose-500",
       bgGradient: "from-pink-50 to-rose-50",
-      count: "150+ Items"
+      
     },
     {
       id: 3,
@@ -52,7 +52,7 @@ const RentalOptions = () => {
       icon: <Sofa className="w-8 h-8" />,
       gradient: "from-green-500 to-emerald-500",
       bgGradient: "from-green-50 to-emerald-50",
-      count: "100+ Items"
+      
     },
     {
       id: 4,
@@ -62,7 +62,7 @@ const RentalOptions = () => {
       icon: <Lightbulb className="w-8 h-8" />,
       gradient: "from-yellow-500 to-amber-500",
       bgGradient: "from-yellow-50 to-amber-50",
-      count: "80+ Items"
+      
     },
   ];
 
