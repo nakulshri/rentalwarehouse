@@ -510,10 +510,10 @@ function ProductsTable({ products, onDelete, onAddProduct }: any) {
               {products.map((product: any) => (
                 <tr key={product.id} className="border-t">
                   <td className="px-3 py-2">
-                    <img
+                      <img
                       src={product.imageUrl || 'https://placehold.co/48x48'}
                       alt={product.name}
-                      className="h-10 w-10 object-cover rounded"
+                      className="h-10 w-10 object-contain rounded"
                     />
                   </td>
                   <td className="px-3 py-2">{product.name}</td>

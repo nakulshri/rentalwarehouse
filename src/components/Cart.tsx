@@ -67,9 +67,9 @@ export default function Cart() {
                       {item.image && (
                         <div className="relative">
                           <img
-                            src={item.image}
+                              src={item.image || 'https://placehold.co/150x150'}
                             alt={item.title}
-                            className="w-20 h-20 object-cover rounded-xl shadow-md"
+                            className="w-20 h-20 object-contain rounded-xl shadow-md"
                           />
                           <div className="absolute -top-2 -right-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white text-xs font-bold px-2 py-1 rounded-full">
                             {item.type === 'sale' ? 'Sale' : 'Rental'}
