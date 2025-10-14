@@ -37,7 +37,7 @@ const Header = () => {
             aria-label="Home"
           >
             <img 
-              src="/company-logo.jpg" 
+              src="/company-logo.png" 
               alt="The Rental Warehouse" 
               className="h-6 md:h-10 w-auto object-contain max-w-[48px] md:max-w-none"
             />

@@ -8,8 +8,8 @@ const Footer = () => {
           <div className="mb-6 md:mb-0 flex flex-col items-center md:items-start">
             {/* Company Logo */}
             <div className="mb-4">
-              <img 
-                src="/company-logo.jpg" 
+                  <img 
+                    src="/company-logo.png" 
                 alt="The Rental Warehouse" 
                 className="h-12 md:h-16 w-auto object-contain logo-footer"
               />

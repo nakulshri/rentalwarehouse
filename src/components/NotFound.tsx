@@ -8,8 +8,8 @@ const NotFound = () => {
       <div className="max-w-md w-full text-center">
         {/* Company Logo */}
         <div className="mb-8 flex justify-center">
-          <img 
-            src="/company-logo.jpg" 
+              <img 
+                src="/company-logo.png" 
             alt="The Rental Warehouse" 
             className="h-20 w-auto object-contain opacity-90"
           />

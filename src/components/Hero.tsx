@@ -28,7 +28,7 @@ const Hero = () => {
           {/* Company Logo */}
           <div className="mb-8 flex justify-center">
             <img 
-              src="/company-logo.jpg" 
+              src="/company-logo.png" 
               alt="The Rental Warehouse" 
               className="h-36 sm:h-44 md:h-56 lg:h-64 w-auto object-contain logo-hero max-w-lg mx-auto"
             />

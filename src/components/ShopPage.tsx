@@ -108,7 +108,7 @@ const ShopPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="flex items-center justify-center mb-4">
-              <img src="/company-logo.jpg" alt="The Rental Warehouse" className="w-20 h-20 sm:w-28 sm:h-28 md:w-36 md:h-36 object-contain mr-3" />
+              <img src="/company-logo.png" alt="The Rental Warehouse" className="w-20 h-20 sm:w-28 sm:h-28 md:w-36 md:h-36 object-contain mr-3" />
               <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold">Shop Our Products</h1>
             </div>
             <p className="text-xl text-indigo-100 max-w-2xl mx-auto">
