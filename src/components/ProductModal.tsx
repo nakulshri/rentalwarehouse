@@ -34,7 +34,8 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
   };
 
   const handleContact = () => {
-    navigate('/contact');
+    // Navigate to the home page contact anchor so the SPA scrolls to the contact section
+    navigate('/#contact');
     onClose();
   };
 
