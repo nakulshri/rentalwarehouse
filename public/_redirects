@@ -1,0 +1,4 @@
+/*    /index.html   200
+
+# This redirect ensures SPA client-side routes (for example /rent or /shop/123)
+# are served by index.html so the single-page app router can handle them.
